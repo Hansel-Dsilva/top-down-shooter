@@ -1,0 +1,28 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://weapons/bullet/bullet.gd" type="Script" id=1]
+[ext_resource path="res://graphics/assets/0.png" type="Texture" id=2]
+
+[node name="Bullet" type="RigidBody2D"]
+position = Vector2( 528, 240.971 )
+collision_layer = 4
+collision_mask = 3
+gravity_scale = 0.0
+contacts_reported = 1
+contact_monitor = true
+script = ExtResource( 1 )
+
+[node name="0" type="Sprite" parent="."]
+position = Vector2( 16.1822, 0.0291748 )
+rotation = 1.5708
+texture = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionPolygon2D" parent="."]
+position = Vector2( 2.52759, 2.41638 )
+polygon = PoolVector2Array( 6.57159, -9.50038, 20.9185, -9.44664, 24.6798, -5.73901, 24.7873, -0.419388, 20.7573, 3.66438, 6.46411, 3.66438, 2.48779, -0.31192, 2.64905, -5.57782 )
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 4.0
+autostart = true
+[connection signal="body_entered" from="." to="." method="_on_bullet_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

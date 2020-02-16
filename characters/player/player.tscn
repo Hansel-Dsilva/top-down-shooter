@@ -1,0 +1,58 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://characters/player/player.gd" type="Script" id=1]
+[ext_resource path="res://gui/GUI.tscn" type="PackedScene" id=2]
+[ext_resource path="res://graphics/assets/manBlue_stand.png" type="Texture" id=3]
+[ext_resource path="res://weapons/gun/gun.tscn" type="PackedScene" id=4]
+[ext_resource path="res://characters/health.gd" type="Script" id=5]
+
+[sub_resource type="CapsuleShape2D" id=1]
+height = 24.203
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 10.8626, 20.8717 )
+
+[node name="Player" type="KinematicBody2D"]
+collision_mask = 7
+script = ExtResource( 1 )
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Label" type="Label" parent="CanvasLayer"]
+visible = false
+margin_left = 620.0
+margin_top = 300.0
+margin_right = 660.0
+margin_bottom = 314.0
+text = "Name"
+align = 1
+valign = 1
+
+[node name="GUI" parent="CanvasLayer" instance=ExtResource( 2 )]
+visible = false
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 3 )
+
+[node name="PlayerCollision" type="CollisionShape2D" parent="."]
+position = Vector2( 0.209091, 0 )
+shape = SubResource( 1 )
+
+[node name="Gun" parent="." instance=ExtResource( 4 )]
+visible = false
+position = Vector2( 18.0596, 9.91031 )
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource( 2 )
+
+[node name="Health" type="Node" parent="."]
+script = ExtResource( 5 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+[connection signal="ammo_changed" from="Gun" to="CanvasLayer/GUI/VBoxContainer/HBoxContainer/AmmoCounter" method="_on_Gun_ammo_changed"]
+[connection signal="gun_changed" from="Gun" to="CanvasLayer/GUI/VBoxContainer/HBoxContainer/GunName" method="_on_Gun_gun_changed"]
+[connection signal="area_entered" from="Area2D" to="Gun" method="_on_Area2D_area_entered"]
+[connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]
+[connection signal="health_changed" from="Health" to="CanvasLayer/GUI/VBoxContainer/HBoxContainer/HealthCounter" method="_on_health_changed"]
