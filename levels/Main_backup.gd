@@ -10,7 +10,7 @@ func _process(delta):
 	var enemies = $Enemies.get_children()
 	if enemies.size():
 		for i in enemies:
-			var new_path = nav_2d.get_simple_path(i.global_position, player.global_position)
+			var new_path = nav_2d.get_simple_path(i.global_position, player.global_position, false)
 			line_2d.points = new_path
 			i.path = new_path
 

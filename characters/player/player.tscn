@@ -10,10 +10,10 @@
 height = 24.203
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 10.8626, 20.8717 )
+extents = Vector2( 10.0767, 16.3847 )
 
 [node name="Player" type="KinematicBody2D"]
-collision_mask = 7
+collision_mask = 6
 script = ExtResource( 1 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
@@ -45,14 +45,16 @@ position = Vector2( 18.0596, 9.91031 )
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2( -2.49125, -0.498251 )
 shape = SubResource( 2 )
 
 [node name="Health" type="Node" parent="."]
 script = ExtResource( 5 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
+smoothing_enabled = true
 [connection signal="ammo_changed" from="Gun" to="CanvasLayer/GUI/VBoxContainer/HBoxContainer/AmmoCounter" method="_on_Gun_ammo_changed"]
 [connection signal="gun_changed" from="Gun" to="CanvasLayer/GUI/VBoxContainer/HBoxContainer/GunName" method="_on_Gun_gun_changed"]
-[connection signal="area_entered" from="Area2D" to="Gun" method="_on_Area2D_area_entered"]
 [connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]
+[connection signal="area_entered" from="Area2D" to="Gun" method="_on_Area2D_area_entered"]
 [connection signal="health_changed" from="Health" to="CanvasLayer/GUI/VBoxContainer/HBoxContainer/HealthCounter" method="_on_health_changed"]

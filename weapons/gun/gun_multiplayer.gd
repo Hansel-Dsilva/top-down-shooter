@@ -39,7 +39,7 @@ sync func _shoot() -> void:
 			$"Inventory".gun_ammo[current_gun] -= 1
 			print($"Inventory".gun_ammo[current_gun])
 			emit_signal("ammo_changed")
-			print("one less")
+#			print("one less")
 		print(new_bullet.parent)
 
 

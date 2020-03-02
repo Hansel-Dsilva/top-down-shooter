@@ -3,7 +3,7 @@ class_name Player
 """
 Base player class. Gives the player the ability to move
 """
-var MAX_SPEED = 350
+export var MAX_SPEED = 500
 
 const gun1 = preload("res://graphics/assets/manBlue_gun.png")
 
@@ -45,11 +45,11 @@ func apply_movement(acceleration):
 	motion = motion.clamped(MAX_SPEED)
 #Hansel
 func change_sprite_textue():
-	pass
 	$Sprite.set_texture(gun1)
 	$Sprite.position.x = 10.131
 	
 func _on_Area2D_area_entered(area: Area2D) -> void:
-	change_sprite_textue()
+	if area.has_method("gun_pickup"):
+		change_sprite_textue()
 	
 

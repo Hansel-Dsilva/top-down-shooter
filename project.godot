@@ -27,7 +27,7 @@ _global_script_class_icons={
 [application]
 
 config/name="FreeGUN"
-run/main_scene="res://main_menu/mainmenu.tscn"
+run/main_scene="res://levels/Main.tscn"
 config/icon="res://icon.png"
 
 [autoload]
@@ -109,8 +109,10 @@ pause={
 2d_physics/layer_2="Wall"
 2d_physics/layer_3="Bullet"
 2d_physics/layer_4="Gun"
+2d_physics/layer_5="Enemy1"
 
 [rendering]
 
+quality/driver/driver_name="GLES2"
 quality/2d/use_pixel_snap=true
 environment/default_environment="res://default_env.tres"

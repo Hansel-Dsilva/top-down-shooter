@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://levels/Main_backup.gd" type="Script" id=1]
 [ext_resource path="res://characters/player/player.tscn" type="PackedScene" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://objects/wall.tscn" type="PackedScene" id=6]
 [ext_resource path="res://pause_menu/pausemenu.tscn" type="PackedScene" id=7]
 [ext_resource path="res://levels/map2.tres" type="TileSet" id=8]
+[ext_resource path="res://levels/map1.tres" type="TileSet" id=9]
 
 [node name="Main" type="Node"]
 script = ExtResource( 1 )
@@ -21,19 +22,18 @@ tile_data = PoolIntArray( 131071, 0, 5, 65536, 0, 5, 65537, 0, 5, 65538, 0, 5, 6
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
 position = Vector2( 0, 110 )
-collision_mask = 15
 collision/safe_margin = 0.05
 
 [node name="Enemies" type="Node" parent="."]
 
 [node name="Enemy" parent="Enemies" instance=ExtResource( 3 )]
-position = Vector2( 1365.11, 326.174 )
+position = Vector2( 1500.48, 102.897 )
 
 [node name="Enemy2" parent="Enemies" instance=ExtResource( 3 )]
-position = Vector2( 1336, 160 )
+position = Vector2( 1501.26, 539.747 )
 
 [node name="Enemy3" parent="Enemies" instance=ExtResource( 3 )]
-position = Vector2( 1367.76, 490.266 )
+position = Vector2( 998.562, 157.987 )
 
 [node name="Guns" type="Node" parent="."]
 
@@ -42,6 +42,17 @@ position = Vector2( 560, 280 )
 
 [node name="Gun2" parent="Guns" instance=ExtResource( 5 )]
 position = Vector2( 280, 460 )
+
+[node name="static" type="StaticBody2D" parent="."]
+collision_layer = 2
+collision_mask = 4
+
+[node name="obstacles" type="TileMap" parent="static"]
+tile_set = ExtResource( 9 )
+centered_textures = true
+collision_use_parent = true
+format = 1
+tile_data = PoolIntArray( 65549, 1610612742, 18, 131085, 1610612742, 18, 196621, 1610612742, 18, 262157, 1610612742, 18, 327693, 1610612742, 18, 458765, 1610612742, 18, 524301, 1610612742, 18 )
 
 [node name="Walls" type="Node" parent="."]
 
@@ -68,5 +79,5 @@ layer = 2
 visible = false
 
 [node name="Line2D" type="Line2D" parent="."]
-visible = false
+antialiased = true
 [connection signal="tree_exiting" from="Enemies/Enemy2" to="." method="_on_Enemy2_tree_exiting"]

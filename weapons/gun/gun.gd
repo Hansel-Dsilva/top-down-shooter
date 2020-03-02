@@ -27,7 +27,7 @@ func make_gui() -> void:
 
 func _shoot() -> void:
 	if $"Inventory".gun_ammo[current_gun] > 0:
-		print("fire")
+#		print("fire")
 		#Bullet scene is loading into game
 		var new_bullet = Bullet.instance()
 		self.add_child(new_bullet)
@@ -94,11 +94,12 @@ func check_shoot() -> void:
 
 
 func _on_Area2D_area_entered(area: Area2D) -> void:
-	self.current_gun = area.gun_number
-	self.bullet_speed = area.bullet_speed
-	self.damage = area.damage
-	$Inventory.gun_ammo[self.current_gun] += area.gun_ammo_count
-	$Inventory.has_guns[current_gun] = true
-	emit_signal("gun_changed")
-	emit_signal("ammo_changed")
-	area.queue_free()
+	if area.has_method("gun_pickup"):
+		self.current_gun = area.gun_number
+		self.bullet_speed = area.bullet_speed
+		self.damage = area.damage
+		$Inventory.gun_ammo[self.current_gun] += area.gun_ammo_count
+		$Inventory.has_guns[current_gun] = true
+		emit_signal("gun_changed")
+		emit_signal("ammo_changed")
+		area.queue_free()

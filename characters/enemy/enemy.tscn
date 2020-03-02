@@ -1,21 +1,31 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://characters/enemy/enemy.gd" type="Script" id=1]
 [ext_resource path="res://graphics/assets/hitman1_gun.png" type="Texture" id=2]
 [ext_resource path="res://graphics/bullet.png" type="Texture" id=3]
 [ext_resource path="res://characters/health.gd" type="Script" id=4]
+[ext_resource path="res://weapons/bullet/bullet.tscn" type="PackedScene" id=5]
 
 [sub_resource type="CapsuleShape2D" id=1]
+radius = 12.921
+height = 19.5135
+
+[sub_resource type="CircleShape2D" id=2]
+radius = 150.931
 
 [node name="Enemy" type="KinematicBody2D"]
-collision_mask = 7
+collision_layer = 16
+collision_mask = 6
 script = ExtResource( 1 )
+detect_radius = 250
+fire_rate = 1.0
+Bullet = ExtResource( 5 )
 
 [node name="EnemySprite" type="Sprite" parent="."]
 texture = ExtResource( 2 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( -9.2232, 1.05408 )
+[node name="EnemyCollision" type="CollisionShape2D" parent="."]
+position = Vector2( -9.2232, 0.05408 )
 shape = SubResource( 1 )
 
 [node name="ShootTimer" type="Timer" parent="."]
@@ -29,4 +39,12 @@ texture = ExtResource( 3 )
 
 [node name="Health" type="Node" parent="."]
 script = ExtResource( 4 )
+
+[node name="visibility" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="visibility"]
+visible = false
+shape = SubResource( 2 )
 [connection signal="timeout" from="ShootTimer" to="." method="_on_ShootTimer_timeout"]
+[connection signal="body_entered" from="visibility" to="." method="_on_visibility_body_entered"]
+[connection signal="body_exited" from="visibility" to="." method="_on_visibility_body_exited"]
