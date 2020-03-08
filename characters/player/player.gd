@@ -4,8 +4,7 @@ class_name Player
 Base player class. Gives the player the ability to move
 """
 export var MAX_SPEED = 500
-
-const gun1 = preload("res://graphics/assets/manBlue_gun.png")
+var move_dir = Vector2.ZERO
 
 func _ready() -> void:
 	make_gui()
@@ -18,22 +17,29 @@ func make_gui() -> void:
 
 func _process(delta: float) -> void:
 	get_input(delta)
-
+	#debug
+	$CanvasLayer/Debug.text = "Moving: " + str(get_input_move_dir().angle())
+	$Torso.speed_scale = motion.length()/500
+	$Legs.speed_scale =  motion.length()/500
+	if move_dir:
+		$Legs.global_rotation = get_input_move_dir().angle()
+	if not motion.length():
+		$Legs.frame = 0
+	
 func get_input(delta: float) -> void:
 #	get_input()
 	self.look_at(get_global_mouse_position())
-	var axis = get_input_axis()
-	if axis == Vector2.ZERO:
+	var move_dir = get_input_move_dir()
+	if move_dir == Vector2.ZERO:
 		apply_friction(ACCELERATION * delta)
 	else:
-		apply_movement(axis * ACCELERATION * delta)
+		apply_movement(move_dir * ACCELERATION * delta)
 	motion = move_and_slide(motion)
 	
-func get_input_axis():
-	var axis = Vector2.ZERO
-	axis.x = int(Input.is_action_pressed("player_move_right")) - int(Input.is_action_pressed("player_move_left"))
-	axis.y = int(Input.is_action_pressed("player_move_down")) - int(Input.is_action_pressed("player_move_up"))
-	return axis.normalized()
+func get_input_move_dir():
+	move_dir.x = int(Input.is_action_pressed("player_move_right")) - int(Input.is_action_pressed("player_move_left"))
+	move_dir.y = int(Input.is_action_pressed("player_move_down")) - int(Input.is_action_pressed("player_move_up"))
+	return move_dir.normalized()
 	
 func apply_friction(amount):
 	if motion.length() > amount:
@@ -45,8 +51,9 @@ func apply_movement(acceleration):
 	motion = motion.clamped(MAX_SPEED)
 #Hansel
 func change_sprite_textue():
-	$Sprite.set_texture(gun1)
-	$Sprite.position.x = 10.131
+#	$Sprite.set_texture(gun1)
+#	$Sprite.position.x = 10.131
+	pass
 	
 func _on_Area2D_area_entered(area: Area2D) -> void:
 	if area.has_method("gun_pickup"):

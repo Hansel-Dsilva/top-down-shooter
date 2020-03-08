@@ -41,10 +41,6 @@ window/size/width=1280
 window/size/height=720
 window/stretch/mode="viewport"
 
-[editor_plugins]
-
-enabled=PoolStringArray( "codeandweb.texturepacker" )
-
 [input]
 
 player_move_up={
@@ -115,4 +111,5 @@ pause={
 
 quality/driver/driver_name="GLES2"
 quality/2d/use_pixel_snap=true
+environment/default_clear_color=Color( 0, 0, 0, 1 )
 environment/default_environment="res://default_env.tres"
