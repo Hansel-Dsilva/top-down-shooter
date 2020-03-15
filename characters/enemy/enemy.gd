@@ -3,7 +3,7 @@ extends Character
 var MAX_SPEED = 300
 var path : = PoolVector2Array() setget set_path
 #var Bullet = preload("res://weapons/bullet/bullet.tscn")
-var bullet_speed: int = 1500
+export var bullet_speed: int = 1500
 var damage: int = 34
 
 export (int) var detect_radius  # size of the visibility circle
@@ -15,6 +15,12 @@ var target  # who are we shooting at?
 var can_shoot = false
 var result
 
+#hansel basic AI
+var velocity = Vector2()
+signal player_spot(Character, lastLoc)
+var player_last_pos
+var los
+
 func _physics_process(_delta):
 	update()
 	# if there's a target, rotate towards it and fire
@@ -22,7 +28,7 @@ func _physics_process(_delta):
 		aim()
 
 # warning-ignore:unused_argument
-func shoot(pos):
+func shoot():
 	#Bullet scene is loading into game
 	var new_bullet = Bullet.instance()
 	self.add_child(new_bullet)
@@ -38,15 +44,12 @@ func _draw():
 	# display the visibility area
 	draw_circle(Vector2(), detect_radius, vis_color)
 
-
-
 func _on_ShootTimer_timeout():
 	can_shoot = true
 
-
-
 func _ready() -> void:
-	set_process(false)
+	#Initial state: [idle]
+#	set_process(false)
 	# set the collision area's radius
 	var shape = CircleShape2D.new()
 	shape.radius = detect_radius
@@ -55,18 +58,24 @@ func _ready() -> void:
 	
 	
 func _process(delta: float) -> void:
-#	var player = get_parent().get_parent().get_node("Player")
-#	var player_distance = (player.global_position - position).length()
-#	if player_distance <= 100:
-#		look_at(player.global_position)
-#		return
-	var path_dist = 0
-	for i in range(path.size()-1):
-		path_dist += abs((path[i] - path[i+1]).length())
-	if path_dist > 100:
-		if result:
-			var move_distance = MAX_SPEED * delta
-			move_along_path(move_distance)
+	#non-path chase
+	if target and los and abs((target.global_position - global_position).length()) > 100:
+		velocity = position.direction_to(target.position) * MAX_SPEED
+#		look_at(target.global_position)
+		if position.distance_to(target.global_position) > 200:
+			velocity = move_and_slide(velocity)
+			player_last_pos = target.global_position
+	
+	#path to last seen pos
+	elif player_last_pos and abs((position - player_last_pos).length()) > 1:
+		emit_signal("player_spot", self, player_last_pos)
+#		var path_dist = 0
+#		for i in range(path.size()-1):
+#			path_dist += abs((path[i] - path[i+1]).length())
+#		if path_dist > 100:
+#			if result:
+		var move_distance = MAX_SPEED * delta
+		move_along_path(move_distance)
 
 func move_along_path(distance : float):
 	var start_point : = position
@@ -81,7 +90,7 @@ func move_along_path(distance : float):
 			break
 		elif distance < 0.0:
 			position = path[0]
-			set_process(false)
+#			set_process(false)
 			break
 		distance -= distance_to_next
 		start_point = path[0]
@@ -89,9 +98,9 @@ func move_along_path(distance : float):
 
 func set_path(value : PoolVector2Array):
 	path = value
-	if value.size() == 0:
-		set_process(false)
-
+#	if value.size() == 0:
+#		set_process(false)
+	
 func _on_visibility_body_entered(body):
 	# connect this to the "body_entered" signal
 	if target:
@@ -99,6 +108,7 @@ func _on_visibility_body_entered(body):
 	if body.get_path() == "/root/Main/Player":
 #		print(body.get_path())
 		target = body
+		los = true
 		set_process(true)
 
 func _on_visibility_body_exited(body):
@@ -108,20 +118,25 @@ func _on_visibility_body_exited(body):
 
 
 func aim():
-	var hit_pos = []
+#	var hit_pos = []
 	var space_state = get_world_2d().direct_space_state
-	var target_extents = target.get_node("Area2D/CollisionShape2D").shape.extents - Vector2(5, 5)
-	var nw = target.position - target_extents
-	var se = target.position + target_extents
-	var ne = target.position + Vector2(target_extents.x, -target_extents.y)
-	var sw = target.position + Vector2(-target_extents.x, target_extents.y)
-	for pos in [target.position, nw, ne, se, sw]:
-		result = space_state.intersect_ray(position, pos, [self], 3)
-		if result:
-			hit_pos.append(result.position)
-			if result.collider.name == "Player":
+#	var target_extents = target.get_node("Area2D/CollisionShape2D").shape.extents - Vector2(5, 5)
+#	var nw = target.position - target_extents
+#	var se = target.position + target_extents
+#	var ne = target.position + Vector2(target_extents.x, -target_extents.y)
+#	var sw = target.position + Vector2(-target_extents.x, target_extents.y)
+#	for pos in [target.position, nw, ne, se, sw]:
+	result = space_state.intersect_ray($BulletSpawn.global_position, target.position, [self], 3)
+	if result:
+#		hit_pos.append(result.position)
+		if result.collider.name == "Player":
 #				$Sprite.self_modulate.r = 1.0
-				rotation = (target.position - position).angle()
-				if can_shoot:
-					shoot(pos)
-					break
+			los = true
+			rotation = (target.position - position).angle()
+			if can_shoot:
+				shoot()
+		else:
+			los = false
+
+func _on_Respawn_timeout():
+	print("Respawn Now")

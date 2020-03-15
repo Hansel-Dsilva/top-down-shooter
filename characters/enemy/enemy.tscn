@@ -17,7 +17,8 @@ radius = 150.931
 collision_layer = 16
 collision_mask = 6
 script = ExtResource( 1 )
-detect_radius = 250
+bullet_speed = 2500
+detect_radius = 700
 fire_rate = 1.0
 Bullet = ExtResource( 5 )
 
@@ -43,8 +44,12 @@ script = ExtResource( 4 )
 [node name="visibility" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="visibility"]
-visible = false
 shape = SubResource( 2 )
+
+[node name="Respawn" type="Timer" parent="."]
+wait_time = 15.0
+one_shot = true
 [connection signal="timeout" from="ShootTimer" to="." method="_on_ShootTimer_timeout"]
 [connection signal="body_entered" from="visibility" to="." method="_on_visibility_body_entered"]
 [connection signal="body_exited" from="visibility" to="." method="_on_visibility_body_exited"]
+[connection signal="timeout" from="Respawn" to="." method="_on_Respawn_timeout"]

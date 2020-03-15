@@ -6,12 +6,5 @@
 [node name="HealthCounter" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
 
-[node name="Counter" parent="." index="0"]
-margin_right = 100.0
-
-[node name="Panel" parent="Counter" index="0"]
-margin_left = 0.0
-margin_right = 100.0
-
 [node name="Title" parent="Counter/Panel" index="0"]
 text = "Health"
