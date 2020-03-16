@@ -24,6 +24,7 @@ signal game_ended()
 signal game_error(what)
 
 # Callback from SceneTree
+# warning-ignore:unused_argument
 func _player_connected(id: int) -> void:
 	# This is not used in this demo, because _connected_ok is called for clients
 	# on success and will do the job.
@@ -78,6 +79,7 @@ remote func register_player(id: int, new_player_name: String) -> void:
 
 
 remote func unregister_player(id: int) -> void:
+# warning-ignore:return_value_discarded
 	players.erase(id)
 	emit_signal("player_list_changed")
 
@@ -185,8 +187,13 @@ func end_game() -> void:
 func _ready() -> void:
 	# Called when the node is added to the scene for the first time.
 	# Initialization here
+# warning-ignore:return_value_discarded
 	get_tree().connect("network_peer_connected", self, "_player_connected")
+# warning-ignore:return_value_discarded
 	get_tree().connect("network_peer_disconnected", self,"_player_disconnected")
+# warning-ignore:return_value_discarded
 	get_tree().connect("connected_to_server", self, "_connected_ok")
+# warning-ignore:return_value_discarded
 	get_tree().connect("connection_failed", self, "_connected_fail")
+# warning-ignore:return_value_discarded
 	get_tree().connect("server_disconnected", self, "_server_disconnected")

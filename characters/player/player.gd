@@ -18,7 +18,7 @@ func make_gui() -> void:
 func _process(delta: float) -> void:
 	get_input(delta)
 	#debug
-	$CanvasLayer/Debug.text = "Moving: " + str(get_input_move_dir().angle())
+#	$CanvasLayer/Debug.text = "Moving: " + str(get_input_move_dir().angle())
 	$Torso.speed_scale = motion.length()/500
 	$Legs.speed_scale =  motion.length()/500
 	if move_dir:
@@ -27,7 +27,8 @@ func _process(delta: float) -> void:
 		$Legs.frame = 0
 	
 func get_input(delta: float) -> void:
-#	get_input()
+#	get_input()\
+	get_tree().set_input_as_handled()
 	self.look_at(get_global_mouse_position())
 	var move_dir = get_input_move_dir()
 	if move_dir == Vector2.ZERO:
@@ -50,13 +51,9 @@ func apply_movement(acceleration):
 	motion += acceleration
 	motion = motion.clamped(MAX_SPEED)
 #Hansel
-func change_sprite_textue():
-#	$Sprite.set_texture(gun1)
-#	$Sprite.position.x = 10.131
-	pass
 	
 func _on_Area2D_area_entered(area: Area2D) -> void:
 	if area.has_method("gun_pickup"):
-		change_sprite_textue()
+		$Torso.animation = "uzi"
 	
 
