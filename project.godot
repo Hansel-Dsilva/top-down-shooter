@@ -18,28 +18,16 @@ _global_script_classes=[ {
 "class": "Player",
 "language": "GDScript",
 "path": "res://characters/player/player.gd"
-}, {
-"base": "Node",
-"class": "State",
-"language": "GDScript",
-"path": "res://addons/kane-FSM/state.gd"
-}, {
-"base": "Node",
-"class": "StateMachine",
-"language": "GDScript",
-"path": "res://addons/kane-FSM/state_machine.gd"
 } ]
 _global_script_class_icons={
 "Character": "",
-"Player": "",
-"State": "",
-"StateMachine": "res://addons/kane-FSM/fsm_icon.svg"
+"Player": ""
 }
 
 [application]
 
 config/name="FreeGUN"
-run/main_scene="res://levels/Main_v0.1.3.tscn"
+run/main_scene="res://levels/Main.tscn"
 config/icon="res://icon.png"
 
 [autoload]
@@ -51,12 +39,7 @@ PixelPerfectScaling="*res://scripts/PixelPerfectScaling.gd"
 
 window/size/width=1280
 window/size/height=720
-window/vsync/vsync_via_compositor=true
 window/stretch/mode="viewport"
-
-[editor_plugins]
-
-enabled=PoolStringArray( "kane-FSM" )
 
 [input]
 
@@ -124,14 +107,9 @@ pause={
 2d_physics/layer_4="Gun"
 2d_physics/layer_5="Enemy1"
 
-[physics]
-
-common/physics_fps=90
-
 [rendering]
 
 quality/driver/driver_name="GLES2"
 quality/2d/use_pixel_snap=true
-threads/thread_model=2
 environment/default_clear_color=Color( 0, 0, 0, 1 )
 environment/default_environment="res://default_env.tres"

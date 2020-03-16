@@ -18,7 +18,7 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	check_shoot()
-#	change_gun()
+	change_gun()
 
 
 func make_gui() -> void:
@@ -32,8 +32,8 @@ func _shoot() -> void:
 		var new_bullet = Bullet.instance()
 		self.add_child(new_bullet)
 		#Bullet position and rotation is set to the spawn point and rotation on the player
-		new_bullet.global_position = $"BulletSpawn".global_position
-		new_bullet.global_rotation = get_parent().global_rotation
+		new_bullet.position = $"BulletSpawn".global_position
+		new_bullet.rotation = get_parent().rotation
 		#Velocity of the bullet is set to the speed of the weapon's bullets
 		new_bullet.linear_velocity = Vector2(cos(get_parent().rotation)*bullet_speed, sin(get_parent().rotation)*bullet_speed)
 		#Play the sound for the current gun being used
@@ -57,7 +57,8 @@ func _shoot() -> void:
 			print($"Inventory".gun_ammo[current_gun])
 			emit_signal("ammo_changed")
 			print("one less")
-#		get_parent().get_node("Torso").playing = true
+		print(new_bullet.parent)
+
 
 func change_gun() -> void:
 	#Switch player weapon when switch weapon key is pressed
@@ -80,7 +81,7 @@ func change_gun() -> void:
 	if Input.is_action_just_pressed("switch_weapon_3"):
 		if $"Inventory".has_guns[2] == true:
 			self.current_gun = 2
-			self.bullet_speed = 10000
+			self.bullet_speed = 1000
 			self.damage = 50
 			#Send signal to GUI about gun change
 			emit_signal("gun_changed")
@@ -89,7 +90,6 @@ func change_gun() -> void:
 
 func check_shoot() -> void:
 	if Input.is_action_just_pressed("fire_gun"):
-		get_tree().set_input_as_handled()
 		self._shoot()
 
 
@@ -98,10 +98,8 @@ func _on_Area2D_area_entered(area: Area2D) -> void:
 		self.current_gun = area.gun_number
 		self.bullet_speed = area.bullet_speed
 		self.damage = area.damage
-#		v0.2
 		$Inventory.gun_ammo[self.current_gun] += area.gun_ammo_count
-#		$Inventory.gun_ammo[self.current_gun] = 100
 		$Inventory.has_guns[current_gun] = true
 		emit_signal("gun_changed")
 		emit_signal("ammo_changed")
-#		area.queue_free()
+		area.queue_free()
