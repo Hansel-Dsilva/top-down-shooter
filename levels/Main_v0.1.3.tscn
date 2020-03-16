@@ -10,6 +10,7 @@
 
 [node name="Main" type="Node"]
 script = ExtResource( 8 )
+spawn_no = null
 
 [node name="Navigation2D" type="Navigation2D" parent="."]
 

@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://characters/enemy/enemy.gd" type="Script" id=1]
 [ext_resource path="res://graphics/assets/hitman1_gun.png" type="Texture" id=2]
 [ext_resource path="res://graphics/bullet.png" type="Texture" id=3]
 [ext_resource path="res://characters/health.gd" type="Script" id=4]
 [ext_resource path="res://weapons/bullet/bullet.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/Walking.tscn" type="PackedScene" id=6]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 12.921
@@ -49,6 +50,8 @@ shape = SubResource( 2 )
 [node name="Respawn" type="Timer" parent="."]
 wait_time = 15.0
 one_shot = true
+
+[node name="GunSoundPlayer" parent="." instance=ExtResource( 6 )]
 [connection signal="timeout" from="ShootTimer" to="." method="_on_ShootTimer_timeout"]
 [connection signal="body_entered" from="visibility" to="." method="_on_visibility_body_entered"]
 [connection signal="body_exited" from="visibility" to="." method="_on_visibility_body_exited"]

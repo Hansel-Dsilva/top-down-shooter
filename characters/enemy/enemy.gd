@@ -135,6 +135,10 @@ func aim():
 			rotation = (target.position - position).angle()
 			if can_shoot:
 				shoot()
+				#gun sounds
+				var gun_sound := "res://weapons/gun/pistol/pistol_shot_" + str(randi() % 3 + 1) + ".wav"
+				$"GunSoundPlayer".stream = load(gun_sound)
+				$"GunSoundPlayer".play(0)
 		else:
 			los = false
 

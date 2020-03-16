@@ -21,7 +21,9 @@ func _ready():
 		randomize()
 		var enemy = Enemy.instance()
 		add_child(enemy)
-		enemy.global_position = tilemap.map_to_world(all_tiles[randi() % all_tiles.size()])
+		enemy.global_position = tilemap.map_to_world(all_tiles[randi() % (all_tiles.size()-100) + 100])
+		enemy.global_position.x += 32
+		enemy.global_position.y += 32
 		enemy.connect("player_spot", self, "path_finder")
 		enemy.get_node("Health").connect("start_respawn", self, "ene_died")
 
