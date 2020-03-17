@@ -3,7 +3,7 @@ extends Node
 onready var nav_2d : Navigation2D = $Navigation2D
 onready var line_2d : Line2D = $Line2D
 #onready var character = $Enemies/Enemy2
-#onready var player = $Player
+onready var Player = preload("res://characters/player/player.tscn")
 #var i
 #var enemy
 #var player_last_pos
@@ -16,7 +16,12 @@ export var spawn_no := 5
 onready var all_tiles = $Navigation2D/TileMap.get_used_cells()
 onready var tilemap = $Navigation2D/TileMap
 
+#gui_menu
+signal showed_gui_menu
+
 func _ready():
+	Signals.connect("died", self, "on_player_died")
+	$CanvasLayer/PauseMenu.gui_menu()
 	for _i in range(spawn_no):
 		randomize()
 		var enemy = Enemy.instance()
@@ -50,5 +55,7 @@ func ene_died():
 	add_child(timer) #to process
 	timer.start(10) #to start
 
-func _process(_delta):
-	pass
+func on_player_died():
+	var player = Player.instance()
+	add_child_below_node($Navigation2D, player)
+	player.global_position = Vector2(37.479, 264.158)

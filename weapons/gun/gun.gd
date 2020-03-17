@@ -51,12 +51,13 @@ func _shoot() -> void:
 		$"GunSoundPlayer".stream = load(gun_sound)
 		$"GunSoundPlayer".play(0)
 		#Check to see if player still has ammo for all guns besides starting weapon
-		if current_gun > 0:
-			$"Inventory".gun_ammo[current_gun] -= 1
-			print($"Inventory".gun_ammo[current_gun])
-			emit_signal("ammo_changed")
-			print("one less")
-#		get_parent().get_node("Torso").playing = true
+#		if current_gun > 0:
+		$"Inventory".gun_ammo[current_gun] -= 1
+		print($"Inventory".gun_ammo[current_gun])
+		emit_signal("ammo_changed")
+		print("one less")
+		get_parent().get_node("Torso").frame = 0
+		get_parent().get_node("Torso").play("uzi")
 
 func change_gun() -> void:
 	#Switch player weapon when switch weapon key is pressed

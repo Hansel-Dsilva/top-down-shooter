@@ -19,7 +19,7 @@ func _process(delta: float) -> void:
 	get_input(delta)
 	#debug
 #	$CanvasLayer/Debug.text = "Moving: " + str(get_input_move_dir().angle())
-	$Torso.speed_scale = motion.length()/500
+#	$Torso.speed_scale = motion.length()/500
 	$Legs.speed_scale =  motion.length()/500
 	if move_dir:
 		$Legs.global_rotation = get_input_move_dir().angle()
@@ -30,7 +30,7 @@ func get_input(delta: float) -> void:
 #	get_input()\
 	get_tree().set_input_as_handled()
 	self.look_at(get_global_mouse_position())
-	var move_dir = get_input_move_dir()
+	move_dir = get_input_move_dir()
 	if move_dir == Vector2.ZERO:
 		apply_friction(ACCELERATION * delta)
 	else:
@@ -56,4 +56,7 @@ func _on_Area2D_area_entered(area: Area2D) -> void:
 	if area.has_method("gun_pickup"):
 		$Torso.animation = "uzi"
 	
-
+func _on_Torso_animation_finished():
+	pass
+#	$Torso.stop()
+#	$Torso.frame = 0
