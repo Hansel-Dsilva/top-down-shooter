@@ -146,5 +146,7 @@ common/physics_fps=90
 quality/driver/driver_name="GLES2"
 quality/2d/use_pixel_snap=true
 threads/thread_model=2
+vram_compression/import_etc=true
+vram_compression/import_etc2=false
 environment/default_clear_color=Color( 0, 0, 0, 1 )
 environment/default_environment="res://default_env.tres"

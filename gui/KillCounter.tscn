@@ -6,3 +6,6 @@
 
 [node name="Title" parent="Counter/Panel" index="0"]
 text = "Kills"
+
+[node name="Amount" parent="Counter/Panel" index="1"]
+text = "0"

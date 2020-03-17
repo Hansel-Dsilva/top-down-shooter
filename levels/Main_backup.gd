@@ -3,13 +3,8 @@ extends Node
 onready var nav_2d : Navigation2D = $Navigation2D
 onready var line_2d : Line2D = $Line2D
 #onready var character = $Enemies/Enemy2
-onready var Player = preload("res://characters/player/player.tscn")
-#var i
-#var enemy
-#var player_last_pos
+#onready var Player = preload("res://characters/player/player.tscn")
 
-#hansel threading
-var thread
 #spawning enemies
 onready var Enemy = preload('res://characters/enemy/enemy.tscn')
 export var spawn_no := 5
@@ -17,11 +12,12 @@ onready var all_tiles = $Navigation2D/TileMap.get_used_cells()
 onready var tilemap = $Navigation2D/TileMap
 
 #gui_menu
-signal showed_gui_menu
+onready var gui_kills: String = $Player/CanvasLayer/GUI/VBoxContainer/HBoxContainer2/KillCounter/Counter/Panel/Amount.text
 
 func _ready():
+# warning-ignore:return_value_discarded
 	Signals.connect("died", self, "on_player_died")
-	$CanvasLayer/PauseMenu.gui_menu()
+	$CanvasLayer/PauseMenu.gui_menu(false)
 	for _i in range(spawn_no):
 		randomize()
 		var enemy = Enemy.instance()
@@ -46,6 +42,8 @@ func _on_spawn_timer_timeout():
 	enemy.get_node("Health").connect("start_respawn", self, "ene_died")
 
 func ene_died():
+	$Player/CanvasLayer/GUI/VBoxContainer/HBoxContainer2/KillCounter/Counter/Panel/Amount.text = str(int($Player/CanvasLayer/GUI/VBoxContainer/HBoxContainer2/KillCounter/Counter/Panel/Amount.text) + 1)
+	$CanvasLayer/PauseMenu.score = $Player/CanvasLayer/GUI/VBoxContainer/HBoxContainer2/KillCounter/Counter/Panel/Amount.text
 	var timer = Timer.new()
 	timer.one_shot = true
 	timer.connect("timeout", self, "_on_spawn_timer_timeout") 
@@ -56,6 +54,7 @@ func ene_died():
 	timer.start(10) #to start
 
 func on_player_died():
-	var player = Player.instance()
-	add_child_below_node($Navigation2D, player)
-	player.global_position = Vector2(37.479, 264.158)
+	$Player/CanvasLayer/GUI/VBoxContainer/HBoxContainer2/KillCounter/Counter/Panel/Amount.text = '0'
+	$CanvasLayer/PauseMenu.gui_menu(true)
+	$Player.global_position = Vector2(37.479, 264.158)
+	$Player/Health.health = 100

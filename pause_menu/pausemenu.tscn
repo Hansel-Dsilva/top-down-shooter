@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://pause_menu/pausemenu.gd" type="Script" id=1]
 [ext_resource path="res://pause_menu/quitbutton.gd" type="Script" id=2]
+[ext_resource path="res://graphics/you_died.jpg" type="Texture" id=3]
 
 [node name="PauseMenu" type="Control"]
 pause_mode = 2
@@ -9,6 +10,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 1 )
 __meta__ = {
+"_edit_lock_": true,
 "_edit_use_anchors_": false
 }
 
@@ -17,18 +19,19 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 color = Color( 0, 0, 0, 0.627451 )
 __meta__ = {
+"_edit_lock_": true,
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="."]
+[node name="Ctrl&Obj" type="Label" parent="."]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -448.0
-margin_top = -200.0
-margin_right = 196.0
-margin_bottom = -152.0
+margin_left = -488.863
+margin_top = -220.357
+margin_right = 159.137
+margin_bottom = -172.357
 grow_horizontal = 2
 grow_vertical = 0
 rect_scale = Vector2( 1.5, 1.5 )
@@ -36,29 +39,65 @@ custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 text = "CONTROLS: WASD/Arrows keys to move. Mouse to aim & left click to shoot.
 
-OBJECTIVE: Enemies keep spawning at random locations. Kill as many as you can before they kill you!"
+OBJECTIVE: Enemies keep spawning at random locations. Kill as many as you can before they kill you! "
 align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Score" type="Label" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -488.863
+margin_top = 78.643
+margin_right = 159.137
+margin_bottom = 126.643
+grow_horizontal = 2
+grow_vertical = 0
+rect_scale = Vector2( 1.5, 1.5 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+text = "Your Score : "
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="QuitButton" type="Button" parent="."]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -21.0
-margin_top = -10.0
-margin_right = 19.0
-margin_bottom = 10.0
+margin_left = -19.0
+margin_top = 190.0
+margin_right = 21.0
+margin_bottom = 210.0
+rect_scale = Vector2( 1.5, 1.5 )
 text = "Quit"
 script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="Button" type="Button" parent="."]
-margin_left = 605.0
-margin_top = 299.0
-margin_right = 674.0
-margin_bottom = 319.0
+[node name="Continue" type="Button" parent="."]
+margin_left = 600.0
+margin_top = 499.0
+margin_right = 669.0
+margin_bottom = 519.0
+rect_scale = Vector2( 1.5, 1.5 )
 text = "Continue"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="you_died" type="Sprite" parent="."]
+visible = false
+position = Vector2( 640.619, 327.633 )
+texture = ExtResource( 3 )
+__meta__ = {
+"_edit_lock_": true
+}
 [connection signal="pressed" from="QuitButton" to="QuitButton" method="_on_QuitButton_pressed"]
-[connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]
+[connection signal="pressed" from="Continue" to="." method="_on_Button_pressed"]

@@ -42,7 +42,8 @@ func shoot():
 
 func _draw():
 	# display the visibility area
-	draw_circle(Vector2(), detect_radius, vis_color)
+#	draw_circle(Vector2(), detect_radius, vis_color)
+	return
 
 func _on_ShootTimer_timeout():
 	can_shoot = true

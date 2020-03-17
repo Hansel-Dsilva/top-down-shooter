@@ -35,13 +35,15 @@ margin_bottom = 40.0
 size_flags_vertical = 2
 
 [node name="Timer" parent="VBoxContainer/HBoxContainer2" instance=ExtResource( 1 )]
+visible = false
 margin_left = 0.0
 margin_right = 1136.0
 margin_bottom = 40.0
 size_flags_horizontal = 3
 
 [node name="KillCounter" parent="VBoxContainer/HBoxContainer2" instance=ExtResource( 2 )]
-margin_left = 1140.0
+margin_left = 0.0
+margin_right = 100.0
 margin_bottom = 40.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
@@ -52,11 +54,12 @@ size_flags_horizontal = 3
 
 [node name="HealthCounter" parent="VBoxContainer/HBoxContainer" instance=ExtResource( 3 )]
 margin_left = 0.0
-margin_right = 566.0
+margin_right = 1136.0
 margin_bottom = 40.0
 size_flags_horizontal = 3
 
 [node name="GunName" parent="VBoxContainer/HBoxContainer" instance=ExtResource( 4 )]
+visible = false
 margin_left = 570.0
 margin_right = 1136.0
 margin_bottom = 40.0

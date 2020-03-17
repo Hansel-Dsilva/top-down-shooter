@@ -13,9 +13,11 @@ func _ready() -> void:
 func health_check(change: int) -> void:
 	health -= change
 	emit_signal("health_changed")
+	var par = get_parent()
 	if self.health <= 0:
-		self.get_parent().queue_free()
-		if self == enemy:
+		#if not player
+		if not get_parent().get_node_or_null("Gun"):
+			self.get_parent().queue_free()
 			emit_signal("start_respawn")
 		else:
 			Signals.emit_signal("died")
