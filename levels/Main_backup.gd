@@ -17,29 +17,28 @@ onready var gui_kills: String = $Player/CanvasLayer/GUI/VBoxContainer/HBoxContai
 func _ready():
 # warning-ignore:return_value_discarded
 	Signals.connect("died", self, "on_player_died")
+	Signals.connect("died", $Player/CanvasLayer/GUI/VBoxContainer/HBoxContainer/HealthCounter, "_on_health_changed")
+	Signals.connect("died", $Player/CanvasLayer/GUI/VBoxContainer/HBoxContainer/AmmoCounter, "_on_Gun_ammo_changed")
 	$CanvasLayer/PauseMenu.gui_menu(false)
 	for _i in range(spawn_no):
-		randomize()
-		var enemy = Enemy.instance()
-		add_child(enemy)
-		enemy.global_position = tilemap.map_to_world(all_tiles[randi() % (all_tiles.size()-100) + 100])
-		enemy.global_position.x += 32
-		enemy.global_position.y += 32
-		enemy.connect("player_spot", self, "path_finder")
-		enemy.get_node("Health").connect("start_respawn", self, "ene_died")
+		spawn_an_ene()
+#		randomize()
+#		var enemy = Enemy.instance()
+#		add_child(enemy)
+#		enemy.global_position = tilemap.map_to_world(all_tiles[randi() % (all_tiles.size()-100) + 100])
+#		enemy.global_position.x += 32
+#		enemy.global_position.y += 32
+#		enemy.connect("player_spot", self, "path_finder")
+#		enemy.get_node("Health").connect("start_respawn", self, "ene_died")
+#		enemy.connect("aim_locked", $Player, "_on_aim_locked")
 
 func path_finder(enemy, player_last_pos):
 	var new_path = nav_2d.get_simple_path(enemy.global_position, player_last_pos, false)
-	line_2d.points = new_path
+#	line_2d.points = new_path
 	enemy.path = new_path
 	
 func _on_spawn_timer_timeout():
-	randomize()
-	var enemy = Enemy.instance()
-	add_child(enemy)
-	enemy.global_position = tilemap.map_to_world(all_tiles[randi() % (all_tiles.size()-10) + 10])
-	enemy.connect("player_spot", self, "path_finder")
-	enemy.get_node("Health").connect("start_respawn", self, "ene_died")
+	spawn_an_ene()
 
 func ene_died():
 	$Player/CanvasLayer/GUI/VBoxContainer/HBoxContainer2/KillCounter/Counter/Panel/Amount.text = str(int($Player/CanvasLayer/GUI/VBoxContainer/HBoxContainer2/KillCounter/Counter/Panel/Amount.text) + 1)
@@ -52,9 +51,23 @@ func ene_died():
 	#_on_timer_timeout is the callback, can have any name
 	add_child(timer) #to process
 	timer.start(10) #to start
+	#assuming enemies only died from player
+	$Player.locked_target = null
 
 func on_player_died():
 	$Player/CanvasLayer/GUI/VBoxContainer/HBoxContainer2/KillCounter/Counter/Panel/Amount.text = '0'
 	$CanvasLayer/PauseMenu.gui_menu(true)
 	$Player.global_position = Vector2(37.479, 264.158)
 	$Player/Health.health = 100
+	$Player/Gun/Inventory.gun_ammo[2] = 0
+
+func spawn_an_ene():
+	randomize()
+	var enemy = Enemy.instance()
+	add_child(enemy)
+	enemy.global_position = tilemap.map_to_world(all_tiles[randi() % (all_tiles.size()-100) + 100])
+	enemy.global_position.x += 32
+	enemy.global_position.y += 32
+	enemy.connect("player_spot", self, "path_finder")
+	enemy.get_node("Health").connect("start_respawn", self, "ene_died")
+	enemy.connect("aim_locked", $Player, "_on_aim_locked")

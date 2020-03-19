@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/spritesheet_tiles.png-b6f0281e44fe69ccf415bcf26863d42d.stex"
+path="res://.import/big_circle.png-3ba2aa43b565b37546a44d8e2dae2840.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://graphics/assets/spritesheet_tiles.png"
-dest_files=[ "res://.import/spritesheet_tiles.png-b6f0281e44fe69ccf415bcf26863d42d.stex" ]
+source_file="res://VirtualAnalog/Sprites/big_circle.png"
+dest_files=[ "res://.import/big_circle.png-3ba2aa43b565b37546a44d8e2dae2840.stex" ]
 
 [params]
 
@@ -20,7 +20,7 @@ compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
-flags/filter=false
+flags/filter=true
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2

@@ -5,32 +5,45 @@ Base player class. Gives the player the ability to move
 """
 export var MAX_SPEED = 500
 var move_dir = Vector2.ZERO
+var locked_target = null
 
 func _ready() -> void:
+	$CanvasLayer/GUI/Ana_move.connect("analog_force_change", self, "ana_dir")
+#	$CanvasLayer/GUI/Ana_aim.connect("analog_force_change", $Gun, "ana_aim")
+#	$CanvasLayer/GUI/Ana_aim.connect("analog_force_change", self, "ana_aim")
+	$CanvasLayer/GUI/ShootButton/Shoot.connect("touch_shoot", $Gun, "_shoot")
 	make_gui()
+	
+	#Disable aiming analog
+	$CanvasLayer/GUI/Ana_aim.set_process_input(false)
 
 
 func make_gui() -> void:
 	$"Camera2D".make_current()
 	$"CanvasLayer/GUI".visible = true
 
+func _physics_process(delta):
+	get_input(delta)
 
 func _process(delta: float) -> void:
-	get_input(delta)
 	#debug
-#	$CanvasLayer/Debug.text = "Moving: " + str(get_input_move_dir().angle())
-#	$Torso.speed_scale = motion.length()/500
+#	$CanvasLayer/Debug.text = str($Gun/Inventory.gun_ammo)
+	if locked_target:
+		look_at(locked_target.global_position)
+	else:
+		rotation = move_dir.angle()
 	$Legs.speed_scale =  motion.length()/500
 	if move_dir:
-		$Legs.global_rotation = get_input_move_dir().angle()
+		$Legs.global_rotation = move_dir.angle()
 	if not motion.length():
 		$Legs.frame = 0
 	
 func get_input(delta: float) -> void:
 #	get_input()\
 	get_tree().set_input_as_handled()
-	self.look_at(get_global_mouse_position())
-	move_dir = get_input_move_dir()
+#	look_at(get_global_mouse_position())
+	
+#	move_dir = get_input_move_dir()
 	if move_dir == Vector2.ZERO:
 		apply_friction(ACCELERATION * delta)
 	else:
@@ -40,23 +53,36 @@ func get_input(delta: float) -> void:
 func get_input_move_dir():
 	move_dir.x = int(Input.is_action_pressed("player_move_right")) - int(Input.is_action_pressed("player_move_left"))
 	move_dir.y = int(Input.is_action_pressed("player_move_down")) - int(Input.is_action_pressed("player_move_up"))
-	return move_dir.normalized()
+	move_dir = move_dir.normalized()
 	
 func apply_friction(amount):
 	if motion.length() > amount:
 		motion -= motion.normalized() * amount
 	else:
 		motion = Vector2.ZERO
+		
 func apply_movement(acceleration):
+#	if acceleration != Vector2.ZERO:
+#		print(acceleration)
 	motion += acceleration
 	motion = motion.clamped(MAX_SPEED)
 #Hansel
+func ana_dir(ana_force, ana_obj):
+	if ana_force.length() > 0.7:
+		move_dir = ana_force.normalized()
+		move_dir.y *= -1
+	else:
+		move_dir = Vector2.ZERO
+
+func ana_aim(ana_force, ana_obj):
+	$CanvasLayer/Debug.text = str(ana_force)
+	if not locked_target and ana_force.length() > 0.4:
+		ana_force.y *= -1
+		rotation = ana_force.angle()
+#		look_at(locked_target.global_position)
+
+func _on_Aread2D_area_enetered(_body):
+	return
 	
-func _on_Area2D_area_entered(area: Area2D) -> void:
-	if area.has_method("gun_pickup"):
-		$Torso.animation = "uzi"
-	
-func _on_Torso_animation_finished():
-	pass
-#	$Torso.stop()
-#	$Torso.frame = 0
+func _on_aim_locked(locked_target):
+	self.locked_target = locked_target

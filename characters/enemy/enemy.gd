@@ -11,7 +11,7 @@ export (float) var fire_rate  # delay time (s) between bullets
 export (PackedScene) var Bullet
 var vis_color = Color(.867, .91, .247, 0.1)
 
-var target  # who are we shooting at?
+var target  # player inside detection circle
 var can_shoot = false
 var result
 
@@ -19,13 +19,40 @@ var result
 var velocity = Vector2()
 signal player_spot(Character, lastLoc)
 var player_last_pos
-var los
+var los = false #can see the player
 
-func _physics_process(_delta):
+#gun sound
+#var gun_sound: String = "res://weapons/gun/smg/smg_shot_" + str(randi() % 5 + 1) + ".wav"
+
+signal aim_locked
+
+
+func _process(delta):
 	update()
 	# if there's a target, rotate towards it and fire
 	if target:
 		aim()
+		
+	#non-path chase
+	if target and los and abs((target.global_position - global_position).length()) > 100:
+		velocity = position.direction_to(target.position) * MAX_SPEED
+#		look_at(target.global_position)
+		if position.distance_to(target.global_position) > 200:
+			velocity = move_and_slide(velocity)
+			player_last_pos = target.global_position
+	#path to last seen pos
+	elif not los and player_last_pos and abs((position - player_last_pos).length()) > 1:
+#		target = null
+		los = false
+		emit_signal("player_spot", self, player_last_pos)
+#		player_last_pos = null
+#		var path_dist = 0
+#		for i in range(path.size()-1):
+#			path_dist += abs((path[i] - path[i+1]).length())
+#		if path_dist > 100:
+#			if result:
+		var move_distance = MAX_SPEED * delta
+		move_along_path(move_distance)
 
 # warning-ignore:unused_argument
 func shoot():
@@ -57,26 +84,30 @@ func _ready() -> void:
 	$visibility/CollisionShape2D.shape = shape
 	$ShootTimer.wait_time = fire_rate
 	
+	$Health.connect("health_changed", self, "ene_hurt")
+	#gun sound
+#	$"GunSoundPlayer".stream = load(gun_sound)
 	
-func _process(delta: float) -> void:
-	#non-path chase
-	if target and los and abs((target.global_position - global_position).length()) > 100:
-		velocity = position.direction_to(target.position) * MAX_SPEED
-#		look_at(target.global_position)
-		if position.distance_to(target.global_position) > 200:
-			velocity = move_and_slide(velocity)
-			player_last_pos = target.global_position
-	
-	#path to last seen pos
-	elif player_last_pos and abs((position - player_last_pos).length()) > 1:
-		emit_signal("player_spot", self, player_last_pos)
-#		var path_dist = 0
-#		for i in range(path.size()-1):
-#			path_dist += abs((path[i] - path[i+1]).length())
-#		if path_dist > 100:
-#			if result:
-		var move_distance = MAX_SPEED * delta
-		move_along_path(move_distance)
+#func _process(delta: float) -> void:
+#	pass
+#	#non-path chase
+#	if target and los and abs((target.global_position - global_position).length()) > 100:
+#		velocity = position.direction_to(target.position) * MAX_SPEED
+##		look_at(target.global_position)
+#		if position.distance_to(target.global_position) > 200:
+#			velocity = move_and_slide(velocity)
+#			player_last_pos = target.global_position
+#
+#	#path to last seen pos
+#	elif player_last_pos and abs((position - player_last_pos).length()) > 1:
+#		emit_signal("player_spot", self, player_last_pos)
+##		var path_dist = 0
+##		for i in range(path.size()-1):
+##			path_dist += abs((path[i] - path[i+1]).length())
+##		if path_dist > 100:
+##			if result:
+#		var move_distance = MAX_SPEED * delta
+#		move_along_path(move_distance)
 
 func move_along_path(distance : float):
 	var start_point : = position
@@ -91,7 +122,8 @@ func move_along_path(distance : float):
 			break
 		elif distance < 0.0:
 			position = path[0]
-#			set_process(false)
+			player_last_pos = null
+			set_process(false)
 			break
 		distance -= distance_to_next
 		start_point = path[0]
@@ -109,13 +141,15 @@ func _on_visibility_body_entered(body):
 	if body.get_path() == "/root/Main/Player":
 #		print(body.get_path())
 		target = body
-		los = true
+#		los = true
 		set_process(true)
 
 func _on_visibility_body_exited(body):
 	# connect this to the "body_exited" signal
 	if body.get_path() == "/root/Main/Player" and body == target:
 			target = null
+			los = false
+			set_process(false)
 
 
 func aim():
@@ -137,11 +171,19 @@ func aim():
 			if can_shoot:
 				shoot()
 				#gun sounds
-				var gun_sound := "res://weapons/gun/pistol/pistol_shot_" + str(randi() % 3 + 1) + ".wav"
-				$"GunSoundPlayer".stream = load(gun_sound)
 				$"GunSoundPlayer".play(0)
 		else:
 			los = false
 
 func _on_Respawn_timeout():
 	print("Respawn Now")
+
+
+func _on_Aim_Lock_pressed():
+	emit_signal("aim_locked", self)
+
+func ene_hurt():
+	$ShootTimer.start(1)
+	var hlth = $Health.health
+	var health_color = float($Health.health) / 100
+	$EnemySprite.self_modulate = Color( 1, health_color, health_color, 1 )

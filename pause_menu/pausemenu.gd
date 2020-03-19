@@ -18,5 +18,11 @@ func gui_menu(died):
 
 func _on_Button_pressed():
 	if dead:
+		dead = false
 		score = 0
+		
 	gui_menu(false)
+
+
+func _on_TouchScreenButton_released():
+	_on_Button_pressed()

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/spritesheet_tiles.png-b6f0281e44fe69ccf415bcf26863d42d.stex"
+path="res://.import/sprWeapons_strip35.png-c7fb7d90d94dd779ab7e56c01495bb04.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://graphics/assets/spritesheet_tiles.png"
-dest_files=[ "res://.import/spritesheet_tiles.png-b6f0281e44fe69ccf415bcf26863d42d.stex" ]
+source_file="res://graphics/assets/HLM1/sprWeapons_strip35.png"
+dest_files=[ "res://.import/sprWeapons_strip35.png-c7fb7d90d94dd779ab7e56c01495bb04.stex" ]
 
 [params]
 

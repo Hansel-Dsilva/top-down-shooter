@@ -10,10 +10,15 @@ var current_gun: int = 0
 var bullet_speed: int = 500
 var damage: int = 34
 
+#gun sound
+#var gun_sound: String = "res://weapons/gun/smg/smg_shot_" + str(randi() % 5 + 1) + ".wav"
+
+var new_bullet
 
 func _ready() -> void:
 	make_gui()
-	pass
+#	$"GunSoundPlayer".stream = load(gun_sound)
+	$AutoFire.stop()
 
 
 func _process(delta: float) -> void:
@@ -27,37 +32,43 @@ func make_gui() -> void:
 
 func _shoot() -> void:
 	if $"Inventory".gun_ammo[current_gun] > 0:
-#		print("fire")
+
 		#Bullet scene is loading into game
-		var new_bullet = Bullet.instance()
-		self.add_child(new_bullet)
-		#Bullet position and rotation is set to the spawn point and rotation on the player
-		new_bullet.global_position = $"BulletSpawn".global_position
-		new_bullet.global_rotation = get_parent().global_rotation
-		#Velocity of the bullet is set to the speed of the weapon's bullets
-		new_bullet.linear_velocity = Vector2(cos(get_parent().rotation)*bullet_speed, sin(get_parent().rotation)*bullet_speed)
+		shoot_bullet()
+#		var new_bullet = Bullet.instance()
+#		self.add_child(new_bullet)
+#		#Bullet position and rotation is set to the spawn point and rotation on the player
+#		new_bullet.global_position = $"BulletSpawn".global_position
+#		new_bullet.global_rotation = get_parent().global_rotation
+#		#Velocity of the bullet is set to the speed of the weapon's bullets
+#		new_bullet.linear_velocity = Vector2(cos(get_parent().rotation)*bullet_speed, sin(get_parent().rotation)*bullet_speed)
+		
 		#Play the sound for the current gun being used
-		var gun_sound: String
-#		match current_gun:
-#			#Pistol
-#			0:
-#				gun_sound = "res://weapons/gun/pistol/pistol_shot_" + str(randi() % 3 + 1) + ".wav"
-#			#RPG
-#			1:
-#				gun_sound = "res://weapons/gun/rpg/rpg_shot_" + str(randi() % 3 + 1) + ".wav"
-#			#SMG
-#			2:
-		gun_sound = "res://weapons/gun/smg/smg_shot_" + str(randi() % 5 + 1) + ".wav"				
-		$"GunSoundPlayer".stream = load(gun_sound)
-		$"GunSoundPlayer".play(0)
+		play_gun_sound()
+#		var gun_sound: String
+##		match current_gun:
+##			#Pistol
+##			0:
+##				gun_sound = "res://weapons/gun/pistol/pistol_shot_" + str(randi() % 3 + 1) + ".wav"
+##			#RPG
+##			1:
+##				gun_sound = "res://weapons/gun/rpg/rpg_shot_" + str(randi() % 3 + 1) + ".wav"
+##			#SMG
+##			2:
+#		gun_sound = "res://weapons/gun/smg/smg_shot_" + str(randi() % 5 + 1) + ".wav"				
+#		$"GunSoundPlayer".stream = load(gun_sound)
+#		$"GunSoundPlayer".play(0)
 		#Check to see if player still has ammo for all guns besides starting weapon
 #		if current_gun > 0:
+
 		$"Inventory".gun_ammo[current_gun] -= 1
-		print($"Inventory".gun_ammo[current_gun])
+#		print($"Inventory".gun_ammo[current_gun])
 		emit_signal("ammo_changed")
-		print("one less")
-		get_parent().get_node("Torso").frame = 0
-		get_parent().get_node("Torso").play("uzi")
+#		print("one less")
+		
+		#Shoot animation
+		get_parent().get_node("Torso").frame = 0	#Change to first frame ie shot fired
+		get_parent().get_node("Torso").play("uzi")	#Slowly return to last frame ie not firing
 
 func change_gun() -> void:
 	#Switch player weapon when switch weapon key is pressed
@@ -104,4 +115,32 @@ func _on_Area2D_area_entered(area: Area2D) -> void:
 		$Inventory.has_guns[current_gun] = true
 		emit_signal("gun_changed")
 		emit_signal("ammo_changed")
-#		area.queue_free()
+
+func ana_aim(ana_force, ana_obj):
+	if ana_force and $AutoFire.is_stopped():
+		$AutoFire.start()
+	elif not ana_force and not $AutoFire.is_stopped():
+		$AutoFire.stop()
+
+func _on_AutoFire_timeout():
+	_shoot()
+
+func shoot_bullet():
+	create_bullet()
+#	var new_bullet = Bullet.instance()
+#	self.add_child(new_bullet)
+	#Bullet position and rotation is set to the spawn point and rotation on the player
+	new_bullet.global_position = $"BulletSpawn".global_position
+	new_bullet.global_rotation = get_parent().global_rotation
+	#Velocity of the bullet is set to the speed of the weapon's bullets
+	new_bullet.linear_velocity = Vector2(cos(get_parent().rotation)*bullet_speed, sin(get_parent().rotation)*bullet_speed)
+
+func play_gun_sound():
+#		var gun_sound: String
+#		gun_sound = "res://weapons/gun/smg/smg_shot_" + str(randi() % 5 + 1) + ".wav"
+#		$"GunSoundPlayer".stream = load(gun_sound)
+		$"GunSoundPlayer".play(0)
+
+func create_bullet():
+	new_bullet = Bullet.instance()
+	self.add_child(new_bullet)

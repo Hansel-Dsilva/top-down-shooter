@@ -1,8 +1,12 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://pause_menu/pausemenu.gd" type="Script" id=1]
 [ext_resource path="res://pause_menu/quitbutton.gd" type="Script" id=2]
 [ext_resource path="res://graphics/you_died.jpg" type="Texture" id=3]
+
+[sub_resource type="ShortCut" id=1]
+
+[sub_resource type="RectangleShape2D" id=2]
 
 [node name="PauseMenu" type="Control"]
 pause_mode = 2
@@ -37,7 +41,7 @@ grow_vertical = 0
 rect_scale = Vector2( 1.5, 1.5 )
 custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
-text = "CONTROLS: WASD/Arrows keys to move. Mouse to aim & left click to shoot.
+text = "CONTROLS: WASD/Arrows keys or right analog to move. Mouse or left analog to aim & left click to shoot.
 
 OBJECTIVE: Enemies keep spawning at random locations. Kill as many as you can before they kill you! "
 align = 1
@@ -87,6 +91,7 @@ margin_top = 499.0
 margin_right = 669.0
 margin_bottom = 519.0
 rect_scale = Vector2( 1.5, 1.5 )
+shortcut = SubResource( 1 )
 text = "Continue"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -99,5 +104,13 @@ texture = ExtResource( 3 )
 __meta__ = {
 "_edit_lock_": true
 }
+
+[node name="TouchScreenButton" type="TouchScreenButton" parent="."]
+position = Vector2( 651.295, 514.068 )
+scale = Vector2( 5.09771, 1.98308 )
+shape = SubResource( 2 )
+shape_centered = false
+visibility_mode = 1
 [connection signal="pressed" from="QuitButton" to="QuitButton" method="_on_QuitButton_pressed"]
 [connection signal="pressed" from="Continue" to="." method="_on_Button_pressed"]
+[connection signal="released" from="TouchScreenButton" to="." method="_on_TouchScreenButton_released"]

@@ -48,18 +48,47 @@ config/icon="res://icon.png"
 
 Signals="*res://scripts/GLOBAL.gd"
 gamestate="*res://scripts/gamestate.gd"
-PixelPerfectScaling="*res://scripts/PixelPerfectScaling.gd"
+
+[debug]
+
+settings/stdout/print_fps=true
+gdscript/completion/autocomplete_setters_and_getters=true
+gdscript/warnings/unused_class_variable=true
+gdscript/warnings/unsafe_property_access=true
+gdscript/warnings/unsafe_method_access=true
+gdscript/warnings/unsafe_cast=true
+gdscript/warnings/unsafe_call_argument=true
 
 [display]
 
 window/size/width=1280
 window/size/height=720
 window/vsync/vsync_via_compositor=true
+window/handheld/orientation="sensor_landscape"
 window/stretch/mode="viewport"
 
-[editor_plugins]
+[importer_defaults]
 
-enabled=PoolStringArray( "kane-FSM" )
+texture={
+"compress/bptc_ldr": 0,
+"compress/hdr_mode": 0,
+"compress/lossy_quality": 0.7,
+"compress/mode": 0,
+"compress/normal_map": 0,
+"detect_3d": false,
+"flags/anisotropic": false,
+"flags/filter": false,
+"flags/mipmaps": false,
+"flags/repeat": 0,
+"flags/srgb": 2,
+"process/HDR_as_SRGB": false,
+"process/fix_alpha_border": true,
+"process/invert_color": false,
+"process/premult_alpha": false,
+"size_limit": 0,
+"stream": false,
+"svg/scale": 1.0
+}
 
 [input]
 
@@ -129,6 +158,10 @@ pause={
  ]
 }
 
+[input_devices]
+
+pointing/emulate_mouse_from_touch=false
+
 [layer_names]
 
 2d_physics/layer_1="Player"
@@ -137,16 +170,22 @@ pause={
 2d_physics/layer_4="Gun"
 2d_physics/layer_5="Enemy1"
 
+[locale]
+
+locale_filter=[ 0, [  ] ]
+
 [physics]
 
-common/physics_fps=90
+2d/default_gravity=0
+2d/default_gravity_vector=Vector2( 0, 0 )
+2d/default_linear_damp=0.0
 
 [rendering]
 
 quality/driver/driver_name="GLES2"
 quality/2d/use_pixel_snap=true
-threads/thread_model=2
 vram_compression/import_etc=true
 vram_compression/import_etc2=false
+quality/shadows/filter_mode=0
 environment/default_clear_color=Color( 0, 0, 0, 1 )
 environment/default_environment="res://default_env.tres"

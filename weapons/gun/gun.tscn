@@ -19,3 +19,9 @@ position = Vector2( 8.34089, 0 )
 script = ExtResource( 3 )
 
 [node name="GunSoundPlayer" parent="." instance=ExtResource( 4 )]
+
+[node name="AutoFire" type="Timer" parent="."]
+process_mode = 0
+wait_time = 0.3
+autostart = true
+[connection signal="timeout" from="AutoFire" to="." method="_on_AutoFire_timeout"]

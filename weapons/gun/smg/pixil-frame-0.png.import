@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/spritesheet_tiles.png-b6f0281e44fe69ccf415bcf26863d42d.stex"
+path="res://.import/pixil-frame-0.png-040daf9c0cfa07f11f0c73e4aca1b777.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://graphics/assets/spritesheet_tiles.png"
-dest_files=[ "res://.import/spritesheet_tiles.png-b6f0281e44fe69ccf415bcf26863d42d.stex" ]
+source_file="res://weapons/gun/smg/pixil-frame-0.png"
+dest_files=[ "res://.import/pixil-frame-0.png-040daf9c0cfa07f11f0c73e4aca1b777.stex" ]
 
 [params]
 
@@ -30,5 +30,5 @@ process/HDR_as_SRGB=false
 process/invert_color=false
 stream=false
 size_limit=0
-detect_3d=true
+detect_3d=false
 svg/scale=1.0

@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://characters/enemy/enemy.gd" type="Script" id=1]
 [ext_resource path="res://graphics/assets/hitman1_gun.png" type="Texture" id=2]
@@ -14,17 +14,23 @@ height = 19.5135
 [sub_resource type="CircleShape2D" id=2]
 radius = 150.931
 
+[sub_resource type="CircleShape2D" id=3]
+
 [node name="Enemy" type="KinematicBody2D"]
+z_as_relative = false
 collision_layer = 16
 collision_mask = 6
 script = ExtResource( 1 )
 bullet_speed = 2500
-detect_radius = 700
+detect_radius = 600
 fire_rate = 1.0
 Bullet = ExtResource( 5 )
 
 [node name="EnemySprite" type="Sprite" parent="."]
 texture = ExtResource( 2 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="EnemyCollision" type="CollisionShape2D" parent="."]
 position = Vector2( -9.2232, 0.05408 )
@@ -53,7 +59,13 @@ wait_time = 15.0
 one_shot = true
 
 [node name="GunSoundPlayer" parent="." instance=ExtResource( 6 )]
+
+[node name="Aim_Lock" type="TouchScreenButton" parent="."]
+position = Vector2( -31.738, -29.7403 )
+scale = Vector2( 3, 3 )
+shape = SubResource( 3 )
 [connection signal="timeout" from="ShootTimer" to="." method="_on_ShootTimer_timeout"]
 [connection signal="body_entered" from="visibility" to="." method="_on_visibility_body_entered"]
 [connection signal="body_exited" from="visibility" to="." method="_on_visibility_body_exited"]
 [connection signal="timeout" from="Respawn" to="." method="_on_Respawn_timeout"]
+[connection signal="pressed" from="Aim_Lock" to="." method="_on_Aim_Lock_pressed"]

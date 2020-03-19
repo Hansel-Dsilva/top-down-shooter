@@ -1,7 +1,11 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://weapons/gun/gun_pickup/gunpickup.tscn" type="PackedScene" id=1]
-[ext_resource path="res://graphics/gun_2.png" type="Texture" id=2]
+[ext_resource path="res://graphics/assets/HLM1/sprWeapons_strip35.png" type="Texture" id=2]
+
+[sub_resource type="AtlasTexture" id=1]
+atlas = ExtResource( 2 )
+region = Rect2( 564, 19, 14, 12 )
 
 [node name="Gun2Pickup" instance=ExtResource( 1 )]
 bullet_speed = 2500
@@ -10,4 +14,9 @@ gun_number = 2
 gun_ammo_count = 100
 
 [node name="GunSprite" parent="." index="0"]
-texture = ExtResource( 2 )
+scale = Vector2( 2, 2 )
+texture = SubResource( 1 )
+region_rect = Rect2( 790, 23, 44, 2 )
+
+[node name="GunCollision" parent="." index="1"]
+position = Vector2( -2, -1 )

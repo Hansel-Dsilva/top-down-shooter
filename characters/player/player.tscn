@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=2]
+[gd_scene load_steps=39 format=2]
 
 [ext_resource path="res://characters/player/player.gd" type="Script" id=1]
 [ext_resource path="res://gui/GUI.tscn" type="PackedScene" id=2]
@@ -7,84 +7,69 @@
 [ext_resource path="res://characters/health.gd" type="Script" id=5]
 [ext_resource path="res://graphics/assets/HLM1/sprLegs_strip16.png" type="Texture" id=6]
 [ext_resource path="res://graphics/assets/HLM1/sprPAttackUzi_strip2.png" type="Texture" id=7]
+[ext_resource path="res://weapons/gun/smg/pixil-frame-0.png" type="Texture" id=8]
 
 [sub_resource type="AtlasTexture" id=1]
-flags = 4
 atlas = ExtResource( 6 )
 region = Rect2( 0, 0, 32, 32 )
 
 [sub_resource type="AtlasTexture" id=2]
-flags = 4
 atlas = ExtResource( 6 )
 region = Rect2( 32, 0, 32, 32 )
 
 [sub_resource type="AtlasTexture" id=3]
-flags = 4
 atlas = ExtResource( 6 )
 region = Rect2( 64, 0, 32, 32 )
 
 [sub_resource type="AtlasTexture" id=4]
-flags = 4
 atlas = ExtResource( 6 )
 region = Rect2( 96, 0, 32, 32 )
 
 [sub_resource type="AtlasTexture" id=5]
-flags = 4
 atlas = ExtResource( 6 )
 region = Rect2( 128, 0, 32, 32 )
 
 [sub_resource type="AtlasTexture" id=6]
-flags = 4
 atlas = ExtResource( 6 )
 region = Rect2( 160, 0, 32, 32 )
 
 [sub_resource type="AtlasTexture" id=7]
-flags = 4
 atlas = ExtResource( 6 )
 region = Rect2( 192, 0, 32, 32 )
 
 [sub_resource type="AtlasTexture" id=8]
-flags = 4
 atlas = ExtResource( 6 )
 region = Rect2( 224, 0, 32, 32 )
 
 [sub_resource type="AtlasTexture" id=9]
-flags = 4
 atlas = ExtResource( 6 )
 region = Rect2( 256, 0, 32, 32 )
 
 [sub_resource type="AtlasTexture" id=10]
-flags = 4
 atlas = ExtResource( 6 )
 region = Rect2( 288, 0, 32, 32 )
 
 [sub_resource type="AtlasTexture" id=11]
-flags = 4
 atlas = ExtResource( 6 )
 region = Rect2( 320, 0, 32, 32 )
 
 [sub_resource type="AtlasTexture" id=12]
-flags = 4
 atlas = ExtResource( 6 )
 region = Rect2( 352, 0, 32, 32 )
 
 [sub_resource type="AtlasTexture" id=13]
-flags = 4
 atlas = ExtResource( 6 )
 region = Rect2( 384, 0, 32, 32 )
 
 [sub_resource type="AtlasTexture" id=14]
-flags = 4
 atlas = ExtResource( 6 )
 region = Rect2( 416, 0, 32, 32 )
 
 [sub_resource type="AtlasTexture" id=15]
-flags = 4
 atlas = ExtResource( 6 )
 region = Rect2( 448, 0, 32, 32 )
 
 [sub_resource type="AtlasTexture" id=16]
-flags = 4
 atlas = ExtResource( 6 )
 region = Rect2( 480, 0, 32, 32 )
 
@@ -98,65 +83,63 @@ animations = [ {
 
 [sub_resource type="AtlasTexture" id=18]
 flags = 4
-atlas = ExtResource( 7 )
-region = Rect2( 0, 0, 44, 24 )
-
-[sub_resource type="AtlasTexture" id=19]
-flags = 4
-atlas = ExtResource( 7 )
-region = Rect2( 44, 0, 44, 24 )
-
-[sub_resource type="AtlasTexture" id=20]
-flags = 4
 atlas = ExtResource( 3 )
 region = Rect2( 0, 0, 60, 60 )
 
-[sub_resource type="AtlasTexture" id=21]
+[sub_resource type="AtlasTexture" id=19]
 flags = 4
 atlas = ExtResource( 3 )
 region = Rect2( 60, 0, 60, 60 )
 
-[sub_resource type="AtlasTexture" id=22]
+[sub_resource type="AtlasTexture" id=20]
 flags = 4
 atlas = ExtResource( 3 )
 region = Rect2( 120, 0, 60, 60 )
 
-[sub_resource type="AtlasTexture" id=23]
+[sub_resource type="AtlasTexture" id=21]
 flags = 4
 atlas = ExtResource( 3 )
 region = Rect2( 180, 0, 60, 60 )
 
-[sub_resource type="AtlasTexture" id=24]
+[sub_resource type="AtlasTexture" id=22]
 flags = 4
 atlas = ExtResource( 3 )
 region = Rect2( 240, 0, 60, 60 )
 
-[sub_resource type="AtlasTexture" id=25]
+[sub_resource type="AtlasTexture" id=23]
 flags = 4
 atlas = ExtResource( 3 )
 region = Rect2( 300, 0, 60, 60 )
 
-[sub_resource type="AtlasTexture" id=26]
+[sub_resource type="AtlasTexture" id=24]
 flags = 4
 atlas = ExtResource( 3 )
 region = Rect2( 360, 0, 60, 60 )
 
-[sub_resource type="AtlasTexture" id=27]
+[sub_resource type="AtlasTexture" id=25]
 flags = 4
 atlas = ExtResource( 3 )
 region = Rect2( 420, 0, 60, 60 )
 
+[sub_resource type="AtlasTexture" id=26]
+atlas = ExtResource( 7 )
+region = Rect2( 0, 0, 44, 24 )
+
+[sub_resource type="AtlasTexture" id=27]
+atlas = ExtResource( 7 )
+region = Rect2( 44, 0, 44, 24 )
+
 [sub_resource type="SpriteFrames" id=28]
 animations = [ {
-"frames": [ SubResource( 18 ), SubResource( 19 ) ],
-"loop": false,
-"name": "uzi",
-"speed": 8.0
-}, {
-"frames": [ SubResource( 20 ), SubResource( 21 ), SubResource( 22 ), SubResource( 23 ), SubResource( 24 ), SubResource( 25 ), SubResource( 26 ), SubResource( 27 ) ],
+"frames": [ SubResource( 18 ), SubResource( 19 ), SubResource( 20 ), SubResource( 21 ), SubResource( 22 ), SubResource( 23 ), SubResource( 24 ), SubResource( 25 ) ],
 "loop": true,
 "name": "walk_unarmed",
 "speed": 10.0
+}, {
+"frames": [ SubResource( 26 ), SubResource( 27 ) ],
+"loop": false,
+"name": "uzi",
+"speed": 8.0
 } ]
 
 [sub_resource type="RectangleShape2D" id=29]
@@ -168,6 +151,18 @@ height = 26.0702
 [node name="Player" type="KinematicBody2D"]
 collision_mask = 6
 script = ExtResource( 1 )
+ACCELERATION = 4500
+MAX_SPEED = 450
+
+[node name="aim_indicator" type="Sprite" parent="."]
+modulate = Color( 1, 1, 1, 0.415686 )
+position = Vector2( 250, 0 )
+scale = Vector2( 4, 2 )
+z_index = 2
+z_as_relative = false
+texture = ExtResource( 8 )
+region_enabled = true
+region_rect = Rect2( 0, 0, 70, 2 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -186,7 +181,6 @@ margin_top = -720.0
 margin_bottom = 4.0
 
 [node name="Debug" type="Label" parent="CanvasLayer"]
-visible = false
 margin_left = 248.2
 margin_top = 48.1625
 margin_right = 288.2
@@ -200,7 +194,7 @@ __meta__ = {
 scale = Vector2( 2.5, 2.5 )
 frames = SubResource( 17 )
 animation = "walk_legs"
-frame = 7
+frame = 14
 playing = true
 
 [node name="Torso" type="AnimatedSprite" parent="."]
@@ -231,8 +225,9 @@ shape = SubResource( 30 )
 script = ExtResource( 5 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2( 0.6, 0.7 )
 smoothing_enabled = true
-[connection signal="animation_finished" from="Torso" to="." method="_on_Torso_animation_finished"]
+smoothing_speed = 10.0
 [connection signal="ammo_changed" from="Gun" to="CanvasLayer/GUI/VBoxContainer/HBoxContainer/AmmoCounter" method="_on_Gun_ammo_changed"]
 [connection signal="gun_changed" from="Gun" to="CanvasLayer/GUI/VBoxContainer/HBoxContainer/GunName" method="_on_Gun_gun_changed"]
 [connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]
