@@ -117,9 +117,9 @@ func _on_Area2D_area_entered(area: Area2D) -> void:
 		emit_signal("ammo_changed")
 
 func ana_aim(ana_force, ana_obj):
-	if ana_force and $AutoFire.is_stopped():
+	if ana_force.length() > 0.5 and $AutoFire.is_stopped():
 		$AutoFire.start()
-	elif not ana_force and not $AutoFire.is_stopped():
+	elif ana_force.length() < 0.5 and not $AutoFire.is_stopped():
 		$AutoFire.stop()
 
 func _on_AutoFire_timeout():

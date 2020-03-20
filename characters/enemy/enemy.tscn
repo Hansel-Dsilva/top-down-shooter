@@ -82,56 +82,56 @@ animations = [ {
 } ]
 
 [sub_resource type="AtlasTexture" id=18]
-atlas = ExtResource( 8 )
+atlas = ExtResource( 7 )
 region = Rect2( 0, 0, 44, 24 )
 
 [sub_resource type="AtlasTexture" id=19]
-atlas = ExtResource( 8 )
+atlas = ExtResource( 7 )
 region = Rect2( 44, 0, 44, 24 )
 
 [sub_resource type="AtlasTexture" id=20]
 atlas = ExtResource( 7 )
-region = Rect2( 0, 0, 44, 24 )
+region = Rect2( 88, 0, 44, 24 )
 
 [sub_resource type="AtlasTexture" id=21]
 atlas = ExtResource( 7 )
-region = Rect2( 44, 0, 44, 24 )
+region = Rect2( 132, 0, 44, 24 )
 
 [sub_resource type="AtlasTexture" id=22]
 atlas = ExtResource( 7 )
-region = Rect2( 88, 0, 44, 24 )
+region = Rect2( 176, 0, 44, 24 )
 
 [sub_resource type="AtlasTexture" id=23]
 atlas = ExtResource( 7 )
-region = Rect2( 132, 0, 44, 24 )
+region = Rect2( 220, 0, 44, 24 )
 
 [sub_resource type="AtlasTexture" id=24]
 atlas = ExtResource( 7 )
-region = Rect2( 176, 0, 44, 24 )
+region = Rect2( 264, 0, 44, 24 )
 
 [sub_resource type="AtlasTexture" id=25]
 atlas = ExtResource( 7 )
-region = Rect2( 220, 0, 44, 24 )
+region = Rect2( 308, 0, 44, 24 )
 
 [sub_resource type="AtlasTexture" id=26]
-atlas = ExtResource( 7 )
-region = Rect2( 264, 0, 44, 24 )
+atlas = ExtResource( 8 )
+region = Rect2( 0, 0, 44, 24 )
 
 [sub_resource type="AtlasTexture" id=27]
-atlas = ExtResource( 7 )
-region = Rect2( 308, 0, 44, 24 )
+atlas = ExtResource( 8 )
+region = Rect2( 44, 0, 44, 24 )
 
 [sub_resource type="SpriteFrames" id=28]
 animations = [ {
-"frames": [ SubResource( 18 ), SubResource( 19 ) ],
-"loop": true,
-"name": "eneShoot",
-"speed": 10.0
-}, {
-"frames": [ SubResource( 20 ), SubResource( 21 ), SubResource( 22 ), SubResource( 23 ), SubResource( 24 ), SubResource( 25 ), SubResource( 26 ), SubResource( 27 ) ],
+"frames": [ SubResource( 18 ), SubResource( 19 ), SubResource( 20 ), SubResource( 21 ), SubResource( 22 ), SubResource( 23 ), SubResource( 24 ), SubResource( 25 ) ],
 "loop": true,
 "name": "eneUzi",
 "speed": 20.0
+}, {
+"frames": [ SubResource( 26 ), SubResource( 27 ) ],
+"loop": true,
+"name": "eneShoot",
+"speed": 10.0
 } ]
 
 [sub_resource type="CapsuleShape2D" id=29]
@@ -149,7 +149,7 @@ collision_layer = 16
 collision_mask = 6
 script = ExtResource( 1 )
 bullet_speed = 2500
-detect_radius = 600
+detect_radius = 300
 fire_rate = 1.0
 Bullet = ExtResource( 5 )
 

@@ -52,7 +52,7 @@ func ene_died():
 	add_child(timer) #to process
 	timer.start(10) #to start
 	#assuming enemies only died from player
-	$Player.locked_target = null
+#	$Player.locked_target = null
 
 func on_player_died():
 	$Player/CanvasLayer/GUI/VBoxContainer/HBoxContainer2/KillCounter/Counter/Panel/Amount.text = '0'

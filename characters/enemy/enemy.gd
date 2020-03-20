@@ -77,7 +77,7 @@ func _on_ShootTimer_timeout():
 
 func _ready() -> void:
 	#Initial state: [idle]
-#	set_process(false)
+	set_process(false)
 	# set the collision area's radius
 	var shape = CircleShape2D.new()
 	shape.radius = detect_radius

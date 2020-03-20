@@ -1,23 +1,10 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://gui/Timer.tscn" type="PackedScene" id=1]
 [ext_resource path="res://gui/KillCounter.tscn" type="PackedScene" id=2]
 [ext_resource path="res://gui/HealthCounter.tscn" type="PackedScene" id=3]
 [ext_resource path="res://gui/GunName.tscn" type="PackedScene" id=4]
 [ext_resource path="res://gui/AmmoCounter.tscn" type="PackedScene" id=5]
-[ext_resource path="res://VirtualAnalog/Analog.tscn" type="PackedScene" id=6]
-[ext_resource path="res://VirtualAnalog/Sprites/big_circle.png" type="Texture" id=7]
-
-[sub_resource type="CircleShape2D" id=1]
-
-[sub_resource type="GDScript" id=2]
-script/source = "extends TouchScreenButton
-signal touch_shoot
-
-
-func _on_Shoot_pressed():
-	emit_signal(\"touch_shoot\")
-"
 
 [node name="GUI" type="MarginContainer"]
 anchor_left = 0.5
@@ -36,34 +23,6 @@ __meta__ = {
 "_edit_horizontal_guides_": [ 641.157 ],
 "_edit_use_anchors_": false
 }
-
-[node name="Control_left" type="Control" parent="."]
-margin_left = 20.0
-margin_top = 20.0
-margin_right = 640.0
-margin_bottom = 704.0
-
-[node name="Ana_move" parent="Control_left" instance=ExtResource( 6 )]
-position = Vector2( 201, 492.636 )
-scale = Vector2( 2, 2 )
-isDynamicallyShowing = true
-analogName = "move"
-
-[node name="Ana_aim" parent="." instance=ExtResource( 6 )]
-position = Vector2( 1048.29, 512.636 )
-scale = Vector2( 2, 2 )
-analogName = "aim"
-
-[node name="ShootButton" type="Sprite" parent="."]
-position = Vector2( 121.086, 294.631 )
-texture = ExtResource( 7 )
-
-[node name="Shoot" type="TouchScreenButton" parent="ShootButton"]
-rotation = 3.14159
-scale = Vector2( 6.25364, 6.20227 )
-shape = SubResource( 1 )
-shape_centered = false
-script = SubResource( 2 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 margin_left = 20.0
@@ -113,4 +72,3 @@ size_flags_horizontal = 3
 [node name="AmmoCounter" parent="VBoxContainer/HBoxContainer" instance=ExtResource( 5 )]
 margin_left = 1140.0
 margin_bottom = 40.0
-[connection signal="pressed" from="ShootButton/Shoot" to="ShootButton/Shoot" method="_on_Shoot_pressed"]

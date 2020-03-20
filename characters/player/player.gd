@@ -5,17 +5,18 @@ Base player class. Gives the player the ability to move
 """
 export var MAX_SPEED = 500
 var move_dir = Vector2.ZERO
-var locked_target = null
+var aim := Vector2()
 
 func _ready() -> void:
-	$CanvasLayer/GUI/Control_left/Ana_move.connect("analog_force_change", self, "ana_dir")
+	$CanvasLayer/Left/Analog.connect("analog_force_change", self, "ana_dir")
 #	$CanvasLayer/GUI/Ana_aim.connect("analog_force_change", $Gun, "ana_aim")
-#	$CanvasLayer/GUI/Ana_aim.connect("analog_force_change", self, "ana_aim")
-	$CanvasLayer/GUI/ShootButton/Shoot.connect("touch_shoot", $Gun, "_shoot")
+	$CanvasLayer/Right/Analog.connect("analog_force_change", self, "ana_aim")
+	$CanvasLayer/Right/Analog.connect("analog_force_change", $Gun, "ana_aim")
+#	$CanvasLayer/GUI/ShootButton/Shoot.connect("touch_shoot", $Gun, "_shoot")
 	make_gui()
 	
 	#Disable aiming analog
-	$CanvasLayer/GUI/Ana_aim.set_process_input(false)
+#	$CanvasLayer/GUI/Ana_aim.set_process_input(false)
 
 
 func make_gui() -> void:
@@ -27,7 +28,7 @@ func _physics_process(delta):
 
 func _process(delta: float) -> void:
 	#debug
-#	$CanvasLayer/Debug.text = str($Gun/Inventory.gun_ammo)
+	$CanvasLayer/Debug.text = str($CanvasLayer/Left/Analog.currentForce)
 #	if locked_target:
 #		look_at(locked_target.global_position)
 #	else:
@@ -44,19 +45,23 @@ func get_input(delta: float) -> void:
 #	look_at(get_global_mouse_position())
 	
 #	move_dir = get_input_move_dir()
-	if move_dir == Vector2.ZERO:
+	if move_dir.length() < 0.00001:
 #		apply_friction(ACCELERATION * delta)
 		motion = motion.move_toward(Vector2.ZERO, FRICTION * delta)
 	else:
 #		apply_movement(move_dir * ACCELERATION * delta)
 		motion = motion.move_toward(move_dir * MAX_SPEED, ACCELERATION * delta)
-
 	motion = move_and_slide(motion)
+	#aim direction
+	if aim:
+		rotation = aim.angle()
+	elif move_dir:
+		rotation = move_dir.angle()
 	
-func get_input_move_dir():
-	move_dir.x = int(Input.is_action_pressed("player_move_right")) - int(Input.is_action_pressed("player_move_left"))
-	move_dir.y = int(Input.is_action_pressed("player_move_down")) - int(Input.is_action_pressed("player_move_up"))
-	move_dir = move_dir.normalized()
+#func get_input_move_dir():
+#	move_dir.x = int(Input.is_action_pressed("player_move_right")) - int(Input.is_action_pressed("player_move_left"))
+#	move_dir.y = int(Input.is_action_pressed("player_move_down")) - int(Input.is_action_pressed("player_move_up"))
+#	move_dir = move_dir.normalized()
 	
 #func apply_friction(amount):
 #	if motion.length() > amount:
@@ -73,19 +78,20 @@ func get_input_move_dir():
 func ana_dir(ana_force, ana_obj):
 	$CanvasLayer/Debug.text = str(ana_force)
 #	var dir = 0
-#	if ana_force.length() > 0.2:
-	move_dir = ana_force#.normalized()
+#	if ana_force.length() > 0.000001:
+	move_dir = ana_force #.normalized()
 	move_dir.y *= -1
+#	rotation = move_dir.angle()
 #	dir = ana_force.angle()
 #	else:
 #		motion = Vector2.ZERO
 #		rotation = dir
 
 func ana_aim(ana_force, ana_obj):
-	
-	if not locked_target and ana_force.length() > 0.4:
+#	if not locked_target and ana_force.length() > 0.4:
 		ana_force.y *= -1
-		rotation = ana_force.angle()
+		aim = ana_force
+#		rotation = ana_force.angle()
 #		look_at(locked_target.global_position)
 
 func _on_Aread2D_area_enetered(_body):

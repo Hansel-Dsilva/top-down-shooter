@@ -78,7 +78,7 @@ func check_change_active_pointer(event):
 			return get_parent().get_rect().has_point(Vector2(event.position.x, event.position.y))
 		else:
 			#Determines if the touch was within the static virtual analog
-			var length = (self.position - Vector2(event.position.x, event.position.y)).length_squared();
+			var length = (self.global_position - Vector2(event.position.x, event.position.y)).length_squared();
 			return length < squaredHalfSizeLength
 	else:
 		#Not a touch event
@@ -104,7 +104,7 @@ func extract_pointer_index(event):
 		return INACTIVE_IDX
 		
 func process_input(event):
-	calculate_force(event.position.x - self.position.x, event.position.y - self.position.y)
+	calculate_force(event.position.x - self.global_position.x, event.position.y - self.global_position.y)
 	updateBallPos()
 	
 	var isReleased = isReleased(event)
