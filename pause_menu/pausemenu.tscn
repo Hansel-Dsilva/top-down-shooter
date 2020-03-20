@@ -97,6 +97,13 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="TouchScreenButton" type="TouchScreenButton" parent="Continue"]
+position = Vector2( 34.1967, 10.0453 )
+scale = Vector2( 3.39847, 1.32205 )
+shape = SubResource( 2 )
+shape_centered = false
+visibility_mode = 1
+
 [node name="you_died" type="Sprite" parent="."]
 visible = false
 position = Vector2( 640.619, 327.633 )
@@ -104,13 +111,6 @@ texture = ExtResource( 3 )
 __meta__ = {
 "_edit_lock_": true
 }
-
-[node name="TouchScreenButton" type="TouchScreenButton" parent="."]
-position = Vector2( 651.295, 514.068 )
-scale = Vector2( 5.09771, 1.98308 )
-shape = SubResource( 2 )
-shape_centered = false
-visibility_mode = 1
 [connection signal="pressed" from="QuitButton" to="QuitButton" method="_on_QuitButton_pressed"]
 [connection signal="pressed" from="Continue" to="." method="_on_Button_pressed"]
-[connection signal="released" from="TouchScreenButton" to="." method="_on_TouchScreenButton_released"]
+[connection signal="released" from="Continue/TouchScreenButton" to="." method="_on_TouchScreenButton_released"]

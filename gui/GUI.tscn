@@ -37,14 +37,25 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Control_left" type="Control" parent="."]
+margin_left = 20.0
+margin_top = 20.0
+margin_right = 640.0
+margin_bottom = 704.0
+
+[node name="Ana_move" parent="Control_left" instance=ExtResource( 6 )]
+position = Vector2( 201, 492.636 )
+scale = Vector2( 2, 2 )
+isDynamicallyShowing = true
+analogName = "move"
+
 [node name="Ana_aim" parent="." instance=ExtResource( 6 )]
-visible = false
-position = Vector2( 200.949, 512.636 )
+position = Vector2( 1048.29, 512.636 )
 scale = Vector2( 2, 2 )
 analogName = "aim"
 
 [node name="ShootButton" type="Sprite" parent="."]
-position = Vector2( 200.949, 512.636 )
+position = Vector2( 121.086, 294.631 )
 texture = ExtResource( 7 )
 
 [node name="Shoot" type="TouchScreenButton" parent="ShootButton"]
@@ -53,11 +64,6 @@ scale = Vector2( 6.25364, 6.20227 )
 shape = SubResource( 1 )
 shape_centered = false
 script = SubResource( 2 )
-
-[node name="Ana_move" parent="." instance=ExtResource( 6 )]
-position = Vector2( 1068.29, 512.636 )
-scale = Vector2( 2, 2 )
-analogName = "move"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 margin_left = 20.0

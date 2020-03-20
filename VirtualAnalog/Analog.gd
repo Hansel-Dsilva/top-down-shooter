@@ -75,7 +75,7 @@ func check_change_active_pointer(event):
 	if mouseButton or touch:
 		if isDynamicallyShowing:
 			#Determines if the touch was within the dynamic bounding rectangle (from parent Control node)
-			return get_parent().get_global_rect().has_point(Vector2(event.position.x, event.position.y))
+			return get_parent().get_rect().has_point(Vector2(event.position.x, event.position.y))
 		else:
 			#Determines if the touch was within the static virtual analog
 			var length = (self.position - Vector2(event.position.x, event.position.y)).length_squared();

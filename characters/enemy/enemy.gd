@@ -186,4 +186,4 @@ func ene_hurt():
 	$ShootTimer.start(1)
 	var hlth = $Health.health
 	var health_color = float($Health.health) / 100
-	$EnemySprite.self_modulate = Color( 1, health_color, health_color, 1 )
+	$EnemySprite.modulate = Color( 1, health_color, health_color, 1 )
