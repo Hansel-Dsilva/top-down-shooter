@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=2]
+[gd_scene load_steps=39 format=2]
 
 [ext_resource path="res://characters/enemy/enemy.gd" type="Script" id=1]
 [ext_resource path="res://graphics/assets/HLM1/enemy/sprEWaiterLegs_strip16.png" type="Texture" id=2]
@@ -82,56 +82,56 @@ animations = [ {
 } ]
 
 [sub_resource type="AtlasTexture" id=18]
-atlas = ExtResource( 7 )
+atlas = ExtResource( 8 )
 region = Rect2( 0, 0, 44, 24 )
 
 [sub_resource type="AtlasTexture" id=19]
-atlas = ExtResource( 7 )
+atlas = ExtResource( 8 )
 region = Rect2( 44, 0, 44, 24 )
 
 [sub_resource type="AtlasTexture" id=20]
 atlas = ExtResource( 7 )
-region = Rect2( 88, 0, 44, 24 )
+region = Rect2( 0, 0, 44, 24 )
 
 [sub_resource type="AtlasTexture" id=21]
 atlas = ExtResource( 7 )
-region = Rect2( 132, 0, 44, 24 )
+region = Rect2( 44, 0, 44, 24 )
 
 [sub_resource type="AtlasTexture" id=22]
 atlas = ExtResource( 7 )
-region = Rect2( 176, 0, 44, 24 )
+region = Rect2( 88, 0, 44, 24 )
 
 [sub_resource type="AtlasTexture" id=23]
 atlas = ExtResource( 7 )
-region = Rect2( 220, 0, 44, 24 )
+region = Rect2( 132, 0, 44, 24 )
 
 [sub_resource type="AtlasTexture" id=24]
 atlas = ExtResource( 7 )
-region = Rect2( 264, 0, 44, 24 )
+region = Rect2( 176, 0, 44, 24 )
 
 [sub_resource type="AtlasTexture" id=25]
 atlas = ExtResource( 7 )
-region = Rect2( 308, 0, 44, 24 )
+region = Rect2( 220, 0, 44, 24 )
 
 [sub_resource type="AtlasTexture" id=26]
-atlas = ExtResource( 8 )
-region = Rect2( 0, 0, 44, 24 )
+atlas = ExtResource( 7 )
+region = Rect2( 264, 0, 44, 24 )
 
 [sub_resource type="AtlasTexture" id=27]
-atlas = ExtResource( 8 )
-region = Rect2( 44, 0, 44, 24 )
+atlas = ExtResource( 7 )
+region = Rect2( 308, 0, 44, 24 )
 
 [sub_resource type="SpriteFrames" id=28]
 animations = [ {
-"frames": [ SubResource( 18 ), SubResource( 19 ), SubResource( 20 ), SubResource( 21 ), SubResource( 22 ), SubResource( 23 ), SubResource( 24 ), SubResource( 25 ) ],
-"loop": true,
-"name": "eneUzi",
-"speed": 20.0
-}, {
-"frames": [ SubResource( 26 ), SubResource( 27 ) ],
+"frames": [ SubResource( 18 ), SubResource( 19 ) ],
 "loop": true,
 "name": "eneShoot",
 "speed": 10.0
+}, {
+"frames": [ SubResource( 20 ), SubResource( 21 ), SubResource( 22 ), SubResource( 23 ), SubResource( 24 ), SubResource( 25 ), SubResource( 26 ), SubResource( 27 ) ],
+"loop": true,
+"name": "eneUzi",
+"speed": 20.0
 } ]
 
 [sub_resource type="CapsuleShape2D" id=29]
@@ -141,15 +141,13 @@ height = 51.1256
 [sub_resource type="CircleShape2D" id=30]
 radius = 150.931
 
-[sub_resource type="CircleShape2D" id=31]
-
 [node name="Enemy" type="KinematicBody2D"]
 z_as_relative = false
 collision_layer = 16
 collision_mask = 6
 script = ExtResource( 1 )
 bullet_speed = 2500
-detect_radius = 300
+detect_radius = 350
 fire_rate = 1.0
 Bullet = ExtResource( 5 )
 
@@ -179,6 +177,7 @@ animation = "eneUzi"
 frame = 3
 
 [node name="EnemyCollision" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2( -17.6325, 0.21186 )
 rotation = -1.03726
 scale = Vector2( 0.5, 0.5 )
@@ -201,14 +200,7 @@ wait_time = 15.0
 one_shot = true
 
 [node name="GunSoundPlayer" parent="." instance=ExtResource( 6 )]
-
-[node name="Aim_Lock" type="TouchScreenButton" parent="."]
-position = Vector2( -17.3572, 0.0944862 )
-scale = Vector2( 3.5, 3.5 )
-shape = SubResource( 31 )
-shape_centered = false
 [connection signal="timeout" from="ShootTimer" to="." method="_on_ShootTimer_timeout"]
 [connection signal="body_entered" from="visibility" to="." method="_on_visibility_body_entered"]
 [connection signal="body_exited" from="visibility" to="." method="_on_visibility_body_exited"]
 [connection signal="timeout" from="Respawn" to="." method="_on_Respawn_timeout"]
-[connection signal="pressed" from="Aim_Lock" to="." method="_on_Aim_Lock_pressed"]

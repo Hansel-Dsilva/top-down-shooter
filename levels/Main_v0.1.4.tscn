@@ -13,6 +13,7 @@ script = ExtResource( 2 )
 [node name="Navigation2D" type="Navigation2D" parent="."]
 
 [node name="TileMap" type="TileMap" parent="Navigation2D"]
+z_as_relative = false
 tile_set = ExtResource( 1 )
 collision_use_kinematic = true
 collision_friction = 0.0
@@ -27,6 +28,7 @@ __meta__ = {
 [node name="Player" parent="." instance=ExtResource( 6 )]
 process_priority = 5
 position = Vector2( 37.479, 264.158 )
+z_index = 1
 collision/safe_margin = 0.05
 
 [node name="Guns" type="Node" parent="."]

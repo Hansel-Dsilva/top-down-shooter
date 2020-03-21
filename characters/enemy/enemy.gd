@@ -31,7 +31,7 @@ func _process(delta):
 	update()
 	# if there's a target, rotate towards it and fire
 	if target:
-		aim()
+		aim(delta)
 		
 	#non-path chase
 	if target and los and abs((target.global_position - global_position).length()) > 100:
@@ -152,7 +152,7 @@ func _on_visibility_body_exited(body):
 			set_process(false)
 
 
-func aim():
+func aim(delta):
 #	var hit_pos = []
 	var space_state = get_world_2d().direct_space_state
 #	var target_extents = target.get_node("Area2D/CollisionShape2D").shape.extents - Vector2(5, 5)
@@ -167,6 +167,7 @@ func aim():
 		if result.collider.name == "Player":
 #				$Sprite.self_modulate.r = 1.0
 			los = true
+#			rotation = move_toward(rotation, (target.position - position).angle(), delta * 5)
 			rotation = (target.position - position).angle()
 			if can_shoot:
 				shoot()

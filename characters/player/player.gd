@@ -28,7 +28,7 @@ func _physics_process(delta):
 
 func _process(delta: float) -> void:
 	#debug
-	$CanvasLayer/Debug.text = str($CanvasLayer/Left/Analog.currentForce)
+#	$CanvasLayer/Debug.text = str($CanvasLayer/Left/Analog.currentForce)
 #	if locked_target:
 #		look_at(locked_target.global_position)
 #	else:
@@ -55,8 +55,18 @@ func get_input(delta: float) -> void:
 	#aim direction
 	if aim:
 		rotation = aim.angle()
+		$Camera2D.offset.y = move_toward($Camera2D.offset.y, aim.y*200, delta*600)
 	elif move_dir:
 		rotation = move_dir.angle()
+		$Camera2D.offset.y = move_toward($Camera2D.offset.y, motion.y/2, delta*motion.length_squared()/300)
+	else:
+		$Camera2D.offset = $Camera2D.offset.move_toward(Vector2.ZERO, delta * 200)
+	
+	#make camera look ahead
+	$CanvasLayer/Debug.text = str($Camera2D.offset)
+#	if motion:
+
+#	$Camera2D.offset = move_toward($Camera2D.offset.length(), motion.length(), delta*motion.length())
 	
 #func get_input_move_dir():
 #	move_dir.x = int(Input.is_action_pressed("player_move_right")) - int(Input.is_action_pressed("player_move_left"))
@@ -76,7 +86,7 @@ func get_input(delta: float) -> void:
 #	motion = motion.move_toward(move_dir * MAX_SPEED, ACCELERATION * delta)
 	
 func ana_dir(ana_force, ana_obj):
-	$CanvasLayer/Debug.text = str(ana_force)
+#	$CanvasLayer/Debug.text = str(ana_force)
 #	var dir = 0
 #	if ana_force.length() > 0.000001:
 	move_dir = ana_force #.normalized()
