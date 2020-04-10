@@ -144,10 +144,10 @@ animations = [ {
 } ]
 
 [sub_resource type="RectangleShape2D" id=29]
-extents = Vector2( 10, 20.1276 )
+extents = Vector2( 10, 37.0358 )
 
 [sub_resource type="CapsuleShape2D" id=30]
-height = 26.0702
+height = 41.1543
 
 [node name="Player" type="KinematicBody2D"]
 collision_mask = 6
@@ -226,7 +226,7 @@ __meta__ = {
 scale = Vector2( 2.5, 2.5 )
 frames = SubResource( 17 )
 animation = "walk_legs"
-frame = 14
+frame = 13
 playing = true
 
 [node name="Torso" type="AnimatedSprite" parent="."]
@@ -236,9 +236,10 @@ frames = SubResource( 28 )
 animation = "uzi"
 frame = 1
 
-[node name="PlayerCollision" type="CollisionShape2D" parent="."]
-position = Vector2( -0.21463, -0.858551 )
-rotation = -1.02718
+[node name="EnemyDetection" type="CollisionShape2D" parent="."]
+position = Vector2( 9, -2.38419e-07 )
+rotation = -1.309
+scale = Vector2( 1, 0.837874 )
 shape = SubResource( 29 )
 
 [node name="Gun" parent="." instance=ExtResource( 4 )]
@@ -249,7 +250,7 @@ position = Vector2( 54.1962, -1.67195 )
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2( -0.21463, -0.858551 )
+position = Vector2( 6, -5.96046e-08 )
 rotation = -1.02718
 shape = SubResource( 30 )
 
@@ -258,7 +259,7 @@ script = ExtResource( 5 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
-zoom = Vector2( 0.8, 0.8 )
+zoom = Vector2( 0.9, 0.9 )
 limit_smoothed = true
 smoothing_enabled = true
 drag_margin_left = 0.0
@@ -268,5 +269,4 @@ drag_margin_bottom = 0.0
 [connection signal="ammo_changed" from="Gun" to="CanvasLayer/GUI/VBoxContainer/HBoxContainer/AmmoCounter" method="_on_Gun_ammo_changed"]
 [connection signal="gun_changed" from="Gun" to="CanvasLayer/GUI/VBoxContainer/HBoxContainer/GunName" method="_on_Gun_gun_changed"]
 [connection signal="area_entered" from="Area2D" to="Gun" method="_on_Area2D_area_entered"]
-[connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]
 [connection signal="health_changed" from="Health" to="CanvasLayer/GUI/VBoxContainer/HBoxContainer/HealthCounter" method="_on_health_changed"]

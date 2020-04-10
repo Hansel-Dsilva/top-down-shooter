@@ -7,6 +7,7 @@ onready var line_2d : Line2D = $Line2D
 
 #spawning enemies
 onready var Enemy = preload('res://characters/enemy/enemy.tscn')
+onready var Zom1 = preload('res://characters/zombie/zombie1.tscn')
 export var spawn_no := 5
 onready var all_tiles = $Navigation2D/TileMap.get_used_cells()
 onready var tilemap = $Navigation2D/TileMap
@@ -21,16 +22,8 @@ func _ready():
 	Signals.connect("died", $Player/CanvasLayer/GUI/VBoxContainer/HBoxContainer/AmmoCounter, "_on_Gun_ammo_changed")
 	$CanvasLayer/PauseMenu.gui_menu(false)
 	for _i in range(spawn_no):
-		spawn_an_ene()
-#		randomize()
-#		var enemy = Enemy.instance()
-#		add_child(enemy)
-#		enemy.global_position = tilemap.map_to_world(all_tiles[randi() % (all_tiles.size()-100) + 100])
-#		enemy.global_position.x += 32
-#		enemy.global_position.y += 32
-#		enemy.connect("player_spot", self, "path_finder")
-#		enemy.get_node("Health").connect("start_respawn", self, "ene_died")
-#		enemy.connect("aim_locked", $Player, "_on_aim_locked")
+#		spawn_an_ene()
+		spawn_a_zom()
 
 func path_finder(enemy, player_last_pos):
 	var new_path = nav_2d.get_simple_path(enemy.global_position, player_last_pos, false)
@@ -38,7 +31,8 @@ func path_finder(enemy, player_last_pos):
 	enemy.path = new_path
 	
 func _on_spawn_timer_timeout():
-	spawn_an_ene()
+#	spawn_an_ene()
+	spawn_a_zom()
 
 func ene_died():
 	$Player/CanvasLayer/GUI/VBoxContainer/HBoxContainer2/KillCounter/Counter/Panel/Amount.text = str(int($Player/CanvasLayer/GUI/VBoxContainer/HBoxContainer2/KillCounter/Counter/Panel/Amount.text) + 1)
@@ -71,3 +65,14 @@ func spawn_an_ene():
 	enemy.connect("player_spot", self, "path_finder")
 	enemy.get_node("Health").connect("start_respawn", self, "ene_died")
 	enemy.connect("aim_locked", $Player, "_on_aim_locked")
+
+func spawn_a_zom():
+	randomize()
+	var z1 = Zom1.instance()
+	add_child(z1)
+	z1.global_position = tilemap.map_to_world(all_tiles[randi() % (all_tiles.size()-100) + 100])
+	z1.global_position.x += 32
+	z1.global_position.y += 32
+	z1.connect("player_spot", self, "path_finder")
+	z1.get_node("Health").connect("start_respawn", self, "ene_died")
+	z1.connect("aim_locked", $Player, "_on_aim_locked")

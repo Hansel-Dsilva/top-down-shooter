@@ -1,76 +1,74 @@
-[gd_scene load_steps=39 format=2]
+[gd_scene load_steps=35 format=2]
 
-[ext_resource path="res://characters/enemy/enemy.gd" type="Script" id=1]
-[ext_resource path="res://graphics/assets/HLM1/enemy/sprEWaiterLegs_strip16.png" type="Texture" id=2]
-[ext_resource path="res://graphics/bullet.png" type="Texture" id=3]
-[ext_resource path="res://characters/health.gd" type="Script" id=4]
-[ext_resource path="res://weapons/bullet/bullet.tscn" type="PackedScene" id=5]
+[ext_resource path="res://graphics/assets/HLM1/enemy/sprEWaiterWalkUzi_strip8.png" type="Texture" id=1]
+[ext_resource path="res://characters/zombie/zoimbie1_stand.png" type="Texture" id=2]
+[ext_resource path="res://characters/zombie/zombie.gd" type="Script" id=3]
+[ext_resource path="res://graphics/assets/HLM1/enemy/sprEWaiterLegs_strip16.png" type="Texture" id=4]
 [ext_resource path="res://scenes/Walking.tscn" type="PackedScene" id=6]
-[ext_resource path="res://graphics/assets/HLM1/enemy/sprEWaiterWalkUzi_strip8.png" type="Texture" id=7]
-[ext_resource path="res://graphics/assets/HLM1/enemy/sprEWaiterAttackUzi_strip2.png" type="Texture" id=8]
+[ext_resource path="res://characters/health.gd" type="Script" id=8]
 
 [sub_resource type="AtlasTexture" id=1]
-atlas = ExtResource( 2 )
+atlas = ExtResource( 4 )
 region = Rect2( 0, 0, 60, 60 )
 
 [sub_resource type="AtlasTexture" id=2]
-atlas = ExtResource( 2 )
+atlas = ExtResource( 4 )
 region = Rect2( 60, 0, 60, 60 )
 
 [sub_resource type="AtlasTexture" id=3]
-atlas = ExtResource( 2 )
+atlas = ExtResource( 4 )
 region = Rect2( 120, 0, 60, 60 )
 
 [sub_resource type="AtlasTexture" id=4]
-atlas = ExtResource( 2 )
+atlas = ExtResource( 4 )
 region = Rect2( 180, 0, 60, 60 )
 
 [sub_resource type="AtlasTexture" id=5]
-atlas = ExtResource( 2 )
+atlas = ExtResource( 4 )
 region = Rect2( 240, 0, 60, 60 )
 
 [sub_resource type="AtlasTexture" id=6]
-atlas = ExtResource( 2 )
+atlas = ExtResource( 4 )
 region = Rect2( 300, 0, 60, 60 )
 
 [sub_resource type="AtlasTexture" id=7]
-atlas = ExtResource( 2 )
+atlas = ExtResource( 4 )
 region = Rect2( 360, 0, 60, 60 )
 
 [sub_resource type="AtlasTexture" id=8]
-atlas = ExtResource( 2 )
+atlas = ExtResource( 4 )
 region = Rect2( 420, 0, 60, 60 )
 
 [sub_resource type="AtlasTexture" id=9]
-atlas = ExtResource( 2 )
+atlas = ExtResource( 4 )
 region = Rect2( 480, 0, 60, 60 )
 
 [sub_resource type="AtlasTexture" id=10]
-atlas = ExtResource( 2 )
+atlas = ExtResource( 4 )
 region = Rect2( 540, 0, 60, 60 )
 
 [sub_resource type="AtlasTexture" id=11]
-atlas = ExtResource( 2 )
+atlas = ExtResource( 4 )
 region = Rect2( 600, 0, 60, 60 )
 
 [sub_resource type="AtlasTexture" id=12]
-atlas = ExtResource( 2 )
+atlas = ExtResource( 4 )
 region = Rect2( 660, 0, 60, 60 )
 
 [sub_resource type="AtlasTexture" id=13]
-atlas = ExtResource( 2 )
+atlas = ExtResource( 4 )
 region = Rect2( 720, 0, 60, 60 )
 
 [sub_resource type="AtlasTexture" id=14]
-atlas = ExtResource( 2 )
+atlas = ExtResource( 4 )
 region = Rect2( 780, 0, 60, 60 )
 
 [sub_resource type="AtlasTexture" id=15]
-atlas = ExtResource( 2 )
+atlas = ExtResource( 4 )
 region = Rect2( 840, 0, 60, 60 )
 
 [sub_resource type="AtlasTexture" id=16]
-atlas = ExtResource( 2 )
+atlas = ExtResource( 4 )
 region = Rect2( 900, 0, 60, 60 )
 
 [sub_resource type="SpriteFrames" id=17]
@@ -82,80 +80,66 @@ animations = [ {
 } ]
 
 [sub_resource type="AtlasTexture" id=18]
-atlas = ExtResource( 8 )
+atlas = ExtResource( 1 )
 region = Rect2( 0, 0, 44, 24 )
 
 [sub_resource type="AtlasTexture" id=19]
-atlas = ExtResource( 8 )
+atlas = ExtResource( 1 )
 region = Rect2( 44, 0, 44, 24 )
 
 [sub_resource type="AtlasTexture" id=20]
-atlas = ExtResource( 7 )
-region = Rect2( 0, 0, 44, 24 )
-
-[sub_resource type="AtlasTexture" id=21]
-atlas = ExtResource( 7 )
-region = Rect2( 44, 0, 44, 24 )
-
-[sub_resource type="AtlasTexture" id=22]
-atlas = ExtResource( 7 )
+atlas = ExtResource( 1 )
 region = Rect2( 88, 0, 44, 24 )
 
-[sub_resource type="AtlasTexture" id=23]
-atlas = ExtResource( 7 )
+[sub_resource type="AtlasTexture" id=21]
+atlas = ExtResource( 1 )
 region = Rect2( 132, 0, 44, 24 )
 
-[sub_resource type="AtlasTexture" id=24]
-atlas = ExtResource( 7 )
+[sub_resource type="AtlasTexture" id=22]
+atlas = ExtResource( 1 )
 region = Rect2( 176, 0, 44, 24 )
 
-[sub_resource type="AtlasTexture" id=25]
-atlas = ExtResource( 7 )
+[sub_resource type="AtlasTexture" id=23]
+atlas = ExtResource( 1 )
 region = Rect2( 220, 0, 44, 24 )
 
-[sub_resource type="AtlasTexture" id=26]
-atlas = ExtResource( 7 )
+[sub_resource type="AtlasTexture" id=24]
+atlas = ExtResource( 1 )
 region = Rect2( 264, 0, 44, 24 )
 
-[sub_resource type="AtlasTexture" id=27]
-atlas = ExtResource( 7 )
+[sub_resource type="AtlasTexture" id=25]
+atlas = ExtResource( 1 )
 region = Rect2( 308, 0, 44, 24 )
 
-[sub_resource type="SpriteFrames" id=28]
+[sub_resource type="SpriteFrames" id=26]
 animations = [ {
-"frames": [ SubResource( 18 ), SubResource( 19 ) ],
-"loop": true,
-"name": "eneShoot",
-"speed": 10.0
-}, {
-"frames": [ SubResource( 20 ), SubResource( 21 ), SubResource( 22 ), SubResource( 23 ), SubResource( 24 ), SubResource( 25 ), SubResource( 26 ), SubResource( 27 ) ],
+"frames": [ SubResource( 18 ), SubResource( 19 ), SubResource( 20 ), SubResource( 21 ), SubResource( 22 ), SubResource( 23 ), SubResource( 24 ), SubResource( 25 ) ],
 "loop": true,
 "name": "eneUzi",
 "speed": 20.0
+}, {
+"frames": [ ExtResource( 2 ) ],
+"loop": true,
+"name": "zomIdle",
+"speed": 10.0
 } ]
 
-[sub_resource type="CapsuleShape2D" id=29]
+[sub_resource type="CapsuleShape2D" id=27]
 radius = 27.3678
 height = 51.1256
 
-[sub_resource type="CircleShape2D" id=30]
+[sub_resource type="CircleShape2D" id=28]
 radius = 150.931
 
-[node name="Enemy" type="KinematicBody2D"]
+[node name="Zombie" type="KinematicBody2D"]
+scale = Vector2( 0.5, 0.5 )
 z_as_relative = false
 collision_layer = 16
-collision_mask = 6
-script = ExtResource( 1 )
-bullet_speed = 2500
-detect_radius = 350
-fire_rate = 1.0
-Bullet = ExtResource( 5 )
-
-[node name="BulletSpawn" type="Sprite" parent="."]
-visible = false
-position = Vector2( 39.2569, -2.84546 )
-rotation = 1.5708
-texture = ExtResource( 3 )
+collision_mask = 5
+script = ExtResource( 3 )
+MAX_SPEED = 200
+detect_radius = 900
+attack_rate = 1.0
 
 [node name="EnemySprite" type="Sprite" parent="."]
 scale = Vector2( 2.5, 2.5 )
@@ -164,41 +148,40 @@ __meta__ = {
 }
 
 [node name="eneLegs" type="AnimatedSprite" parent="EnemySprite"]
-visible = false
 position = Vector2( -7.93318, 0.330549 )
 frames = SubResource( 17 )
 animation = "eneWalk"
 frame = 8
 
-[node name="eneTorso" type="AnimatedSprite" parent="EnemySprite"]
+[node name="zomTorso" type="AnimatedSprite" parent="EnemySprite"]
 position = Vector2( 0.0858551, 0 )
-frames = SubResource( 28 )
-animation = "eneUzi"
-frame = 3
+frames = SubResource( 26 )
+animation = "zomIdle"
 
 [node name="EnemyCollision" type="CollisionShape2D" parent="."]
-position = Vector2( -17.6325, 0.21186 )
-rotation = -1.03726
-scale = Vector2( 0.5, 0.5 )
-shape = SubResource( 29 )
+shape = SubResource( 27 )
 
-[node name="ShootTimer" type="Timer" parent="."]
+[node name="AttackTimer" type="Timer" parent="."]
 autostart = true
 
 [node name="Health" type="Node" parent="."]
-script = ExtResource( 4 )
+script = ExtResource( 8 )
 
 [node name="visibility" type="Area2D" parent="."]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="visibility"]
-shape = SubResource( 30 )
+shape = SubResource( 28 )
 
 [node name="Respawn" type="Timer" parent="."]
 wait_time = 15.0
 one_shot = true
 
-[node name="GunSoundPlayer" parent="." instance=ExtResource( 6 )]
-[connection signal="timeout" from="ShootTimer" to="." method="_on_ShootTimer_timeout"]
+[node name="AttackSoundPlayer" parent="." instance=ExtResource( 6 )]
+
+[node name="AttackPos" type="Position2D" parent="."]
+position = Vector2( 60, 0 )
+[connection signal="timeout" from="AttackTimer" to="." method="_on_ShootTimer_timeout"]
 [connection signal="body_entered" from="visibility" to="." method="_on_visibility_body_entered"]
 [connection signal="body_exited" from="visibility" to="." method="_on_visibility_body_exited"]
 [connection signal="timeout" from="Respawn" to="." method="_on_Respawn_timeout"]

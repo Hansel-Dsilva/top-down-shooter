@@ -82,7 +82,7 @@ func _ready() -> void:
 	var shape = CircleShape2D.new()
 	shape.radius = detect_radius
 	$visibility/CollisionShape2D.shape = shape
-	$ShootTimer.wait_time = fire_rate
+	$AttackTimer.wait_time = fire_rate
 	
 	$Health.connect("health_changed", self, "ene_hurt")
 	#gun sound

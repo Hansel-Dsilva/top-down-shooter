@@ -58,12 +58,10 @@ gamestate="*res://scripts/gamestate.gd"
 [debug]
 
 settings/stdout/print_fps=true
-gdscript/completion/autocomplete_setters_and_getters=true
-gdscript/warnings/unused_class_variable=true
-gdscript/warnings/unsafe_property_access=true
-gdscript/warnings/unsafe_method_access=true
-gdscript/warnings/unsafe_cast=true
-gdscript/warnings/unsafe_call_argument=true
+gdscript/warnings/unused_variable=false
+gdscript/warnings/unused_argument=false
+gdscript/warnings/unused_signal=false
+gdscript/warnings/return_value_discarded=false
 
 [display]
 
@@ -71,7 +69,8 @@ window/size/width=1280
 window/size/height=720
 window/vsync/vsync_via_compositor=true
 window/handheld/orientation="sensor_landscape"
-window/stretch/mode="viewport"
+window/stretch/mode="2d"
+window/stretch/aspect="expand"
 
 [importer_defaults]
 
