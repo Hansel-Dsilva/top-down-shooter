@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=2]
+
+[sub_resource type="RectangleShape2D" id=1]
+
+[node name="TouchScreenButton" type="TouchScreenButton"]
+position = Vector2( 34.1967, 10.0453 )
+scale = Vector2( 3.39847, 1.32205 )
+shape = SubResource( 1 )
+shape_centered = false
+visibility_mode = 1

@@ -17,9 +17,9 @@ onready var gui_kills: String = $Player/CanvasLayer/GUI/VBoxContainer/HBoxContai
 
 func _ready():
 # warning-ignore:return_value_discarded
-	Signals.connect("died", self, "on_player_died")
-	Signals.connect("died", $Player/CanvasLayer/GUI/VBoxContainer/HBoxContainer/HealthCounter, "_on_health_changed")
-	Signals.connect("died", $Player/CanvasLayer/GUI/VBoxContainer/HBoxContainer/AmmoCounter, "_on_Gun_ammo_changed")
+	GLOBAL.connect("died", self, "on_player_died")
+	GLOBAL.connect("died", $Player/CanvasLayer/GUI/VBoxContainer/HBoxContainer/HealthCounter, "_on_health_changed")
+	GLOBAL.connect("died", $Player/CanvasLayer/GUI/VBoxContainer/HBoxContainer/AmmoCounter, "_on_Gun_ammo_changed")
 	$CanvasLayer/PauseMenu.gui_menu(false)
 	for _i in range(spawn_no):
 #		spawn_an_ene()
@@ -40,7 +40,7 @@ func ene_died():
 	var timer = Timer.new()
 	timer.one_shot = true
 	timer.connect("timeout", self, "_on_spawn_timer_timeout") 
-	#timeout is what says in docs, in signals
+	#timeout is what says in docs, in GLOBAL
 	#self is who respond to the callback
 	#_on_timer_timeout is the callback, can have any name
 	add_child(timer) #to process

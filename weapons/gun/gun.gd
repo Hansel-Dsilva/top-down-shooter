@@ -27,22 +27,14 @@ func _process(delta: float) -> void:
 
 
 func make_gui() -> void:
-	emit_signal("gun_changed")
+#	emit_signal("gun_changed")
 	emit_signal("ammo_changed")
 
 func _shoot() -> void:
 	if $"Inventory".gun_ammo[current_gun] > 0:
-
 		#Bullet scene is loading into game
 		shoot_bullet()
-#		var new_bullet = Bullet.instance()
-#		self.add_child(new_bullet)
-#		#Bullet position and rotation is set to the spawn point and rotation on the player
-#		new_bullet.global_position = $"BulletSpawn".global_position
-#		new_bullet.global_rotation = get_parent().global_rotation
-#		#Velocity of the bullet is set to the speed of the weapon's bullets
-#		new_bullet.linear_velocity = Vector2(cos(get_parent().rotation)*bullet_speed, sin(get_parent().rotation)*bullet_speed)
-		
+
 		#Play the sound for the current gun being used
 		play_gun_sound()
 #		var gun_sound: String
@@ -67,8 +59,8 @@ func _shoot() -> void:
 #		print("one less")
 		
 		#Shoot animation
-		get_parent().get_node("Torso").frame = 0	#Change to first frame ie shot fired
-		get_parent().get_node("Torso").play("uzi")	#Slowly return to last frame ie not firing
+		get_parent().frame = 0	#Change to first frame ie shot fired
+		get_parent().play("uzi")	#Slowly return to last frame ie not firing
 
 func change_gun() -> void:
 	#Switch player weapon when switch weapon key is pressed
@@ -116,25 +108,24 @@ func _on_Area2D_area_entered(area: Area2D) -> void:
 		emit_signal("gun_changed")
 		emit_signal("ammo_changed")
 
-func ana_aim(ana_force, ana_obj):
-	if ana_force.length() > 0.9 and $AutoFire.is_stopped():
-		$AutoFire.start()
-	elif ana_force.length() < 0.9 and not $AutoFire.is_stopped():
-		$AutoFire.stop()
+#func ana_aim(ana_force, ana_obj):
+#	if ana_force.length() > 0.9 and $AutoFire.is_stopped():
+#		$AutoFire.start()
+#	elif ana_force.length() < 0.9 and not $AutoFire.is_stopped():
+#		$AutoFire.stop()
 
 func _on_AutoFire_timeout():
 	_shoot()
 
 func shoot_bullet():
 	create_bullet()
-#	var new_bullet = Bullet.instance()
-#	self.add_child(new_bullet)
-	#Bullet position and rotation is set to the spawn point and rotation on the player
-	new_bullet.global_position = $"BulletSpawn".global_position
-	new_bullet.global_rotation = get_parent().global_rotation
-	#Velocity of the bullet is set to the speed of the weapon's bullets
-	new_bullet.linear_velocity = Vector2(cos(get_parent().rotation)*bullet_speed, sin(get_parent().rotation)*bullet_speed)
 
+	# Bullet position and rotation is set to the spawn point and rotation on the player
+	new_bullet.global_position = $"BulletSpawn".global_position
+	new_bullet.global_rotation = global_rotation
+	#Velocity of the bullet is set to the speed of the weapon's bullets
+	new_bullet.linear_velocity = Vector2(cos(GLOBAL.player_gun.global_rotation)*bullet_speed, sin(GLOBAL.player_gun.global_rotation)*bullet_speed)
+#	new_bullet.linear_velocity = Vector2(cos(get_parent().rotation)*bullet_speed, sin(get_parent().rotation)*bullet_speed)
 func play_gun_sound():
 #		var gun_sound: String
 #		gun_sound = "res://weapons/gun/smg/smg_shot_" + str(randi() % 5 + 1) + ".wav"

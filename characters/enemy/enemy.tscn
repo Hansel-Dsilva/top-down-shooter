@@ -5,9 +5,10 @@
 [ext_resource path="res://graphics/bullet.png" type="Texture" id=3]
 [ext_resource path="res://characters/health.gd" type="Script" id=4]
 [ext_resource path="res://weapons/bullet/bullet.tscn" type="PackedScene" id=5]
-[ext_resource path="res://scenes/Walking.tscn" type="PackedScene" id=6]
+[ext_resource path="res://scenes/GunSoundPlayer.tscn" type="PackedScene" id=6]
 [ext_resource path="res://graphics/assets/HLM1/enemy/sprEWaiterWalkUzi_strip8.png" type="Texture" id=7]
 [ext_resource path="res://graphics/assets/HLM1/enemy/sprEWaiterAttackUzi_strip2.png" type="Texture" id=8]
+
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 2 )

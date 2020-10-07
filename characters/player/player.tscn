@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=2]
+[gd_scene load_steps=39 format=2]
 
 [ext_resource path="res://characters/player/player.gd" type="Script" id=1]
 [ext_resource path="res://gui/GUI.tscn" type="PackedScene" id=2]
@@ -8,7 +8,6 @@
 [ext_resource path="res://graphics/assets/HLM1/sprLegs_strip16.png" type="Texture" id=6]
 [ext_resource path="res://graphics/assets/HLM1/sprPAttackUzi_strip2.png" type="Texture" id=7]
 [ext_resource path="res://weapons/gun/smg/pixil-frame-0.png" type="Texture" id=8]
-[ext_resource path="res://VirtualAnalog/Analog.tscn" type="PackedScene" id=9]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 6 )
@@ -153,7 +152,7 @@ height = 41.1543
 collision_mask = 6
 script = ExtResource( 1 )
 ACCELERATION = 4500
-MAX_SPEED = 400
+MAX_SPEED = 250
 
 [node name="aim_indicator" type="Sprite" parent="."]
 modulate = Color( 1, 1, 1, 0.415686 )
@@ -167,47 +166,6 @@ region_rect = Rect2( 0, 0, 70, 2 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="Left" type="Control" parent="CanvasLayer"]
-margin_right = 540.0
-margin_bottom = 720.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Analog" parent="CanvasLayer/Left" instance=ExtResource( 9 )]
-position = Vector2( 165, 460 )
-scale = Vector2( 2, 2 )
-analogName = "move"
-
-[node name="Right" type="Control" parent="CanvasLayer"]
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = -590.0
-margin_top = -720.0
-grow_horizontal = 0
-grow_vertical = 0
-rect_pivot_offset = Vector2( 295, 360 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Analog" parent="CanvasLayer/Right" instance=ExtResource( 9 )]
-position = Vector2( 373, 460 )
-scale = Vector2( 2, 2 )
-analogName = "aim"
-
-[node name="Label" type="Label" parent="CanvasLayer"]
-visible = false
-margin_left = 620.0
-margin_top = 300.0
-margin_right = 660.0
-margin_bottom = 314.0
-text = "Name"
-align = 1
-valign = 1
-
 [node name="GUI" parent="CanvasLayer" instance=ExtResource( 2 )]
 margin_top = -720.0
 margin_bottom = 4.0
@@ -219,6 +177,7 @@ margin_right = 288.2
 margin_bottom = 62.1625
 text = "lol"
 __meta__ = {
+"_edit_lock_": true,
 "_edit_use_anchors_": false
 }
 
@@ -226,7 +185,7 @@ __meta__ = {
 scale = Vector2( 2.5, 2.5 )
 frames = SubResource( 17 )
 animation = "walk_legs"
-frame = 13
+frame = 5
 playing = true
 
 [node name="Torso" type="AnimatedSprite" parent="."]
@@ -236,16 +195,17 @@ frames = SubResource( 28 )
 animation = "uzi"
 frame = 1
 
+[node name="Gun" parent="Torso" instance=ExtResource( 4 )]
+visible = false
+modulate = Color( 1, 1, 1, 0.305882 )
+position = Vector2( 9.67848, -0.66878 )
+scale = Vector2( 0.4, 0.4 )
+
 [node name="EnemyDetection" type="CollisionShape2D" parent="."]
 position = Vector2( 9, -2.38419e-07 )
 rotation = -1.309
 scale = Vector2( 1, 0.837874 )
 shape = SubResource( 29 )
-
-[node name="Gun" parent="." instance=ExtResource( 4 )]
-visible = false
-modulate = Color( 1, 1, 1, 0.305882 )
-position = Vector2( 54.1962, -1.67195 )
 
 [node name="Area2D" type="Area2D" parent="."]
 
@@ -266,7 +226,7 @@ drag_margin_left = 0.0
 drag_margin_top = 0.0
 drag_margin_right = 0.0
 drag_margin_bottom = 0.0
-[connection signal="ammo_changed" from="Gun" to="CanvasLayer/GUI/VBoxContainer/HBoxContainer/AmmoCounter" method="_on_Gun_ammo_changed"]
-[connection signal="gun_changed" from="Gun" to="CanvasLayer/GUI/VBoxContainer/HBoxContainer/GunName" method="_on_Gun_gun_changed"]
-[connection signal="area_entered" from="Area2D" to="Gun" method="_on_Area2D_area_entered"]
+[connection signal="ammo_changed" from="Torso/Gun" to="CanvasLayer/GUI/VBoxContainer/HBoxContainer/AmmoCounter" method="_on_Gun_ammo_changed"]
+[connection signal="gun_changed" from="Torso/Gun" to="CanvasLayer/GUI/VBoxContainer/HBoxContainer/GunName" method="_on_Gun_gun_changed"]
+[connection signal="area_entered" from="Area2D" to="Torso/Gun" method="_on_Area2D_area_entered"]
 [connection signal="health_changed" from="Health" to="CanvasLayer/GUI/VBoxContainer/HBoxContainer/HealthCounter" method="_on_health_changed"]

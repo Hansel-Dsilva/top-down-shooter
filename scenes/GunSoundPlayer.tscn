@@ -4,3 +4,4 @@
 
 [node name="GunSoundPlayer" type="AudioStreamPlayer"]
 stream = ExtResource( 1 )
+volume_db = -27.902

@@ -1,0 +1,11 @@
+[gd_scene format=2]
+
+[node name="Label" type="Label"]
+visible = false
+margin_left = 620.0
+margin_top = 300.0
+margin_right = 660.0
+margin_bottom = 314.0
+text = "Name"
+align = 1
+valign = 1

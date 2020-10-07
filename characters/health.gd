@@ -20,4 +20,4 @@ func health_check(change: int) -> void:
 			self.get_parent().queue_free()
 			emit_signal("start_respawn")
 		else:
-			Signals.emit_signal("died")
+			GLOBAL.emit_signal("died")

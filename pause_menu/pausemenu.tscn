@@ -1,12 +1,10 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://pause_menu/pausemenu.gd" type="Script" id=1]
 [ext_resource path="res://pause_menu/quitbutton.gd" type="Script" id=2]
 [ext_resource path="res://graphics/you_died.jpg" type="Texture" id=3]
 
 [sub_resource type="ShortCut" id=1]
-
-[sub_resource type="RectangleShape2D" id=2]
 
 [node name="PauseMenu" type="Control"]
 pause_mode = 2
@@ -97,13 +95,6 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="TouchScreenButton" type="TouchScreenButton" parent="Continue"]
-position = Vector2( 34.1967, 10.0453 )
-scale = Vector2( 3.39847, 1.32205 )
-shape = SubResource( 2 )
-shape_centered = false
-visibility_mode = 1
-
 [node name="you_died" type="Sprite" parent="."]
 visible = false
 position = Vector2( 640.619, 327.633 )
@@ -113,4 +104,3 @@ __meta__ = {
 }
 [connection signal="pressed" from="QuitButton" to="QuitButton" method="_on_QuitButton_pressed"]
 [connection signal="pressed" from="Continue" to="." method="_on_Button_pressed"]
-[connection signal="released" from="Continue/TouchScreenButton" to="." method="_on_TouchScreenButton_released"]
